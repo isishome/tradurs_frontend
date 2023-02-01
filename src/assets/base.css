@@ -1,0 +1,43 @@
+:root {
+  --q-primary: #EEAE15;
+  --q-secondary: #575A61;
+  --q-dark-page: #0B0B0D;
+  --q-dark: #181B22;
+  --q-grey: #fafafa;
+}
+
+body {
+  color: var(--q-secondary);
+}
+
+.invert {
+  filter: invert(100%);
+}
+
+.q-focus-helper {
+  opacity: .05 !important;
+}
+
+.no-hover .q-focus-helper {
+  display: none;
+}
+
+.q-checkbox__inner:before {
+  display: none;
+}
+
+@media (min-width:1024px) {
+  .q-drawer {
+    position: fixed !important;
+  }
+}
+
+@media (min-width:1440px) {
+  .q-drawer {
+    width: calc((100vw - 840px) / 2) !important;
+  }
+
+  .q-page-container {
+    padding-left: calc((100vw - 840px) / 2) !important;
+  }
+}
