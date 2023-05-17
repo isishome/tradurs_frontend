@@ -1,8 +1,9 @@
 <script setup>
-import { ref, inject, reactive, computed } from 'vue'
+import { ref, inject, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
 import { checkEmail, checkComplexity } from '@/common'
+import { nanoid } from 'nanoid'
 
 const axios = inject('axios')
 const $q = useQuasar()
@@ -10,20 +11,23 @@ const route = useRoute()
 const router = useRouter()
 
 const email = ref(route.query.email || null)
+const tempPw = email.value ? nanoid() : null
 const info = ref({
   email: email.value,
-  pw: null
+  pw: tempPw
 })
 const complexity = reactive({
   value: 0,
   color: 'grey'
 })
 const updateComplexity = (val) => {
+  if (!val) return
   const color = ['grey-3', 'red-6', 'deep-orange-6', 'amber-6', 'lime-6', 'green-6']
   complexity.value = checkComplexity(val)
   complexity.color = color[complexity.value / 20]
 }
-const cpw = ref(null)
+const cpw = ref(tempPw)
+updateComplexity(info.value.pw)
 
 const join = () => {
   axios.post('/account/join', info.value)

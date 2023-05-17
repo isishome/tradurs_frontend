@@ -16,6 +16,7 @@ instance.interceptors.response.use(function (response) {
   if (status === 401) {
     const accountStore = useAccountStore()
     accountStore.signed = false
+    accountStore.info = {}
     router.push({ name: 'Sign' })
     return Promise.reject()
   }

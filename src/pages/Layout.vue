@@ -33,6 +33,7 @@ const sign = () => {
   axios.get('/account/signOut')
     .then(() => {
       accountStore.signed = false
+      accountStore.info = {}
       router.go()
     })
     .catch(() => {
@@ -77,11 +78,11 @@ onUnmounted(() => {
 <template>
   <q-layout view="hHh lpR lFf">
     <!-- <q-drawer show-if-above v-model="leftDrawerOpen" side="left" :behavior="screen.gt.sm ? 'desktop' : 'mobile'"
-      class="row justify-end" :width="280">
-      <div class="q-py-lg" :class="screen.gt.md ? 'q-px-lg' : 'q-px-md'"
-        :style="`overflow-y:scroll;width:280px;height:${asideHeight}`">
-      </div>
-    </q-drawer> -->
+                class="row justify-end" :width="280">
+                <div class="q-py-lg" :class="screen.gt.md ? 'q-px-lg' : 'q-px-md'"
+                  :style="`overflow-y:scroll;width:280px;height:${asideHeight}`">
+                </div>
+              </q-drawer> -->
     <q-header bordered class="bg-white text-secondary q-py-md header row justify-center">
       <q-toolbar class="toolbar">
         <div class="col-3 row items-center">
@@ -92,16 +93,16 @@ onUnmounted(() => {
             </div>
           </q-btn>
           <!-- <q-btn dense flat round class="lt-md" :ripple="false" @click="leftDrawerOpen = !leftDrawerOpen">
-            <img src="@/assets/menu.svg" class="icon" height="24" />
-          </q-btn> -->
+                      <img src="@/assets/menu.svg" class="icon" height="24" />
+                    </q-btn> -->
         </div>
         <div class="col row justify-center">
           <q-btn class="lt-md no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
             <img src="@/assets/logo_small.webp" width="30" />
           </q-btn>
           <!-- <q-tabs dense class="gt-sm q-px-md bg-transparent text-secondary no-hover">
-            <q-route-tab :ripple="false" :href="d2r" label="GAME" exact />
-          </q-tabs> -->
+                      <q-route-tab :ripple="false" :href="d2r" label="GAME" exact />
+                    </q-tabs> -->
         </div>
         <q-btn-group class="col-3 justify-end" :class="screen.gt.sm ? 'q-gutter-x-md' : 'q-gutter-x-sm'" rounded flat>
           <q-btn v-if="signed" flat dense :ripple="false" :to="{ name: 'Info' }">
@@ -117,8 +118,7 @@ onUnmounted(() => {
     <q-page-container>
       <q-page :style-fn="myTweak">
         <div class="row">
-          <div :class="screen.gt.md ? 'q-pa-xl' : 'q-px-md q-py-lg'"
-            :style="screen.gt.md ? 'width:830px' : 'width:100%'">
+          <div :class="screen.gt.md ? 'q-pa-xl' : 'q-px-md q-py-lg'" :style="screen.gt.md ? 'width:830px' : 'width:100%'">
             <RouterView />
           </div>
           <div class="gt-md col">

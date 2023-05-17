@@ -20,10 +20,10 @@ onMounted(() => {
         code: code
       }
     })
-      .then(() => {
+      .then((response) => {
         $q.notify({
           color: 'positive',
-          message: mode === 'verify' ? '이메일 인증이 완료되었습니다.' : '이메일로 새 비밀번호가 발송되었습니다.'
+          message: mode === 'verify' && response.data === true ? '이메일 인증이 완료되었습니다.' : mode === 'verify' && response.data === false ? '인증 코드가 만료되어 새 인증 메일이 발송되었습니다.' : '이메일로 새 비밀번호가 발송되었습니다.'
         })
       })
       .catch(() => { })

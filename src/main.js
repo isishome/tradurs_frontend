@@ -22,6 +22,11 @@ import '@/assets/base.css'
 
 createApp(App).provide('axios', instance).use(Quasar, {
   plugins: { Cookies, Notify }, // import Quasar plugins and add here
+  config: {
+    notify: {
+      position: 'top'
+    }
+  }
 }).use(createPinia()).use(router)
   .component('Link', Link)
   .component('Title', Title)
