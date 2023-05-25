@@ -8,9 +8,11 @@ const axios = inject('axios')
 const router = useRouter()
 const $q = useQuasar()
 
+const disable = ref(false)
 const email = ref(null)
 
 const forgot = () => {
+  disable.value = true
   axios.get('/account/forgot', {
     params: {
       email: email.value
@@ -24,13 +26,16 @@ const forgot = () => {
       router.push({ name: 'Sign' })
     })
     .catch(() => { })
+    .then(() => {
+      disable.value = false
+    })
 }
 </script>
 <template>
   <div class="absolute-center">
     <q-card flat :bordered="$q.screen.gt.xs" class="forgot" :class="$q.screen.gt.xs ? 'q-pa-lg' : 'q-pa-none'">
       <q-card-section class="text-center">
-        <q-btn class="no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
+        <q-btn :disable="disable" class="no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
           <div class="row justify-center q-gutter-x-xs items-center">
             <img src="@/assets/logo_small.webp" width="45" />
             <img src="@/assets/logo.webp" height="30" />
@@ -39,10 +44,10 @@ const forgot = () => {
       </q-card-section>
       <q-card-section>
         <q-form class="column q-gutter-y-md" @submit="forgot">
-          <q-input outlined no-error-icon hide-bottom-space v-model="email" type="email" maxlength="320"
-            :rules="[val => val && val.length >= 6 && checkEmail(val) || '']" label="이메일" />
-          <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
-            label="확인 메일 보내기" type="submit" padding="md" />
+          <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="email" type="email"
+            maxlength="320" :rules="[val => val && val.length >= 6 && checkEmail(val) || '']" label="이메일" />
+          <q-btn :loading="disable" outline :ripple="false" text-color="secondary"
+            class="bg-primary shadow-1 text-weight-bold" label="확인 메일 보내기" type="submit" padding="md" />
         </q-form>
       </q-card-section>
     </q-card>
