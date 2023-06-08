@@ -52,8 +52,8 @@ const join = () => {
       <q-card-section class="text-center">
         <q-btn :disable="disable" class="no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
           <div class="row justify-center q-gutter-x-xs items-center">
-            <img src="images/logo.svg" width="40" />
-            <img src="images/logo.webp" height="30" />
+            <img src="images/tradurs_logo.svg" width="40" />
+            <img src="images/tradurs_text.svg" height="30" />
           </div>
         </q-btn>
       </q-card-section>
