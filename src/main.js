@@ -4,11 +4,7 @@ import App from './App.vue'
 import { instance } from '@/axios'
 import { Quasar, Cookies, Notify } from 'quasar'
 import { router } from '@/router'
-import Link from '@/components/paragraph/Link.vue'
 import Title from '@/components/paragraph/Title.vue'
-import Move from '@/components/paragraph/Move.vue'
-import Note from '@/components/paragraph/Note.vue'
-import Info from '@/components/paragraph/Info.vue'
 
 // Import icon libraries
 //import '@quasar/extras/roboto-font/roboto-font.css'
@@ -28,9 +24,5 @@ createApp(App).provide('axios', instance).use(Quasar, {
     }
   }
 }).use(createPinia()).use(router)
-  .component('Link', Link)
   .component('Title', Title)
-  .component('Move', Move)
-  .component('Note', Note)
-  .component('Info', Info)
   .mount('#app')
