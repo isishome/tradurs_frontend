@@ -2,6 +2,7 @@
 import { ref, inject, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { checkEmail, checkComplexity } from '@/common'
 import { nanoid } from 'nanoid'
 
@@ -9,6 +10,7 @@ const axios = inject('axios')
 const $q = useQuasar()
 const route = useRoute()
 const router = useRouter()
+const { t } = useI18n({ useScope: 'global' })
 
 const disable = ref(false)
 const email = ref(route.query.email || null)
@@ -36,7 +38,7 @@ const join = () => {
     .then(() => {
       $q.notify({
         color: 'positive',
-        message: '가입이 완료되었습니다. 가입한 이메일 주소로 발송된 인증 메일을 확인하여 인증을 완료하세요.'
+        message: t('join.success')
       })
       router.replace({ name: 'Sign' })
     })
@@ -61,19 +63,19 @@ const join = () => {
         <q-form autocomplete="on" class="column q-gutter-y-md" @submit="join">
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space :readonly="email !== null"
             v-model="info.email" type="email" maxlength="320"
-            :rules="[val => val && val.length > - 6 && checkEmail(val) || '']" label="이메일" />
+            :rules="[val => val && val.length > - 6 && checkEmail(val) || '']" :label="t('sign.email')" />
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="info.pw" type="password"
-            maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']" label="비밀번호"
-            @update:model-value="updateComplexity">
+            maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
+            :label="t('sign.password')" @update:model-value="updateComplexity">
             <template #append>
               <q-knob readonly v-model="complexity.value" size="20px" :thickness="0.4" :color="complexity.color"
                 track-color="grey-3" class="text-primary q-ma-md" />
             </template>
           </q-input>
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="cpw" type="password"
-            maxlength="16" :rules="[val => val && info.pw === val || '']" label="비밀번호 확인" />
-          <q-btn :loading="disable" outline :ripple="false" text-color="secondary"
-            class="bg-primary shadow-1 text-weight-bold" label="가입" padding="md" type="submit" />
+            maxlength="16" :rules="[val => val && info.pw === val || '']" :label="t('join.confirmPassword')" />
+          <q-btn no-caps :loading="disable" outline :ripple="false" text-color="secondary"
+            class="bg-primary shadow-1 text-weight-bold" :label="t('join.join')" padding="md" type="submit" />
         </q-form>
       </q-card-section>
     </q-card>

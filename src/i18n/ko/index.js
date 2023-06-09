@@ -1,0 +1,46 @@
+export default {
+  language: '언어',
+  beta: '베타',
+  games: {
+    d4: '디아블로® IV'
+  },
+  sign: {
+    email: '이메일 주소',
+    password: '비밀번호',
+    remember: '이메일 주소 기억하기',
+    forgot: '비밀번호를 잊으셨나요?',
+    signIn: '로그인',
+    new: '트레이더스가 처음이신가요?',
+    failedToSocial: '간편 로그인 인증이 실패했습니다',
+    needVerifyEmail: '이메일 인증이 필요합니다'
+  },
+  info: {
+    user: '사용자 정보',
+    changePassword: '비밀번호 변경',
+    currentPassword: '현재 비밀번호',
+    newPassword: '새 비밀번호',
+    confirmNewPassword: '새 비밀번호 확인',
+    change: '변경',
+    success: '비밀번호가 변경되었습니다'
+  },
+  join: {
+    confirmPassword: '비밀번호 확인',
+    join: '가입',
+    success: '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
+  },
+  forgot: {
+    send: '확인 이메일 보내기',
+    success: '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
+  },
+  verify: {
+    success: '이메일 인증이 완료되었습니다',
+    expired: '인증 코드가 만료되어 새 인증 메일이 발송되었습니다',
+    new: '이메일 주소로 임시 비밀번호가 발송되었습니다'
+  },
+  page: {
+    pnf: '페이지를 찾을 수 없습니다'
+  },
+  notFound: {
+    gotoMain: '메인 페이지로'
+  }
+}

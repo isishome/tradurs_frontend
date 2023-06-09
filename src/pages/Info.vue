@@ -1,10 +1,12 @@
 <script setup>
 import { inject, ref, reactive, computed, nextTick } from 'vue'
 import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
 import { checkComplexity } from '@/common'
 
 const axios = inject('axios')
 const $q = useQuasar()
+const { t } = useI18n({ useScope: 'global' })
 
 const screen = computed(() => $q.screen)
 
@@ -28,7 +30,7 @@ const change = () => {
     .then(() => {
       $q.notify({
         color: 'positive',
-        message: '비밀번호 변경이 완료되었습니다. '
+        message: t('info.success')
       })
       info.value.op = null
       info.value.np = null
@@ -43,16 +45,17 @@ const change = () => {
 }
 </script>
 <template>
-  <Title sub style="margin-top:0">사용자 정보</Title>
+  <Title sub style="margin-top:0">{{ t('info.user') }}</Title>
   <q-card flat>
     <q-card-section class="text-weight-bold text-h5">
-      비밀번호 변경
+      {{ t('info.changePassword') }}
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form ref="form" class="column q-gutter-y-md" @submit="change">
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.op" label="기존 비밀번호"
-          maxlength="16" :rules="[val => val && val.length >= 8 || '']" class="text-h5" />
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.np" label="새 비밀번호"
+        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.op"
+          :label="t('info.currentPassword')" maxlength="16" :rules="[val => val && val.length >= 8 || '']"
+          class="text-h5" />
+        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.np" :label="t('info.newPassword')"
           maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
           @update:model-value="updateComplexity" class="text-h5">
           <template #append>
@@ -60,15 +63,13 @@ const change = () => {
               track-color="grey-3" class="text-primary q-ma-md" />
           </template>
         </q-input>
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="cp" label="비밀번호 확인" maxlength="16"
-          :rules="[val => val && val === info.np || '']" class="text-h5" />
-        <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold" label="변경"
-          padding="lg" type="submit" />
+        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="cp"
+          :label="t('info.confirmNewPassword')" maxlength="16" :rules="[val => val && val === info.np || '']"
+          class="text-h5" />
+        <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
+          :label="t('info.change')" padding="lg" type="submit" />
       </q-form>
     </q-card-section>
   </q-card>
-
 </template>
-<style scoped>
-
-</style>
+<style scoped></style>

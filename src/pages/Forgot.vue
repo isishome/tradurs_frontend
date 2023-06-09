@@ -2,11 +2,13 @@
 import { ref, inject } from 'vue'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
 import { checkEmail } from '@/common'
 
 const axios = inject('axios')
 const router = useRouter()
 const $q = useQuasar()
+const { t } = useI18n({ useScope: 'global' })
 
 const disable = ref(false)
 const email = ref(null)
@@ -21,7 +23,7 @@ const forgot = () => {
     .then(() => {
       $q.notify({
         color: 'positive',
-        message: '확인 이메일 발송 완료'
+        message: t('forgot.success')
       })
       router.push({ name: 'Sign' })
     })
@@ -45,9 +47,9 @@ const forgot = () => {
       <q-card-section>
         <q-form class="column q-gutter-y-md" @submit="forgot">
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="email" type="email"
-            maxlength="320" :rules="[val => val && val.length >= 6 && checkEmail(val) || '']" label="이메일" />
-          <q-btn :loading="disable" outline :ripple="false" text-color="secondary"
-            class="bg-primary shadow-1 text-weight-bold" label="확인 메일 보내기" type="submit" padding="md" />
+            maxlength="320" :rules="[val => val && val.length >= 6 && checkEmail(val) || '']" :label="t('sign.email')" />
+          <q-btn no-caps :loading="disable" outline :ripple="false" text-color="secondary"
+            class="bg-primary shadow-1 text-weight-bold" :label="t('forgot.send')" type="submit" padding="md" />
         </q-form>
       </q-card-section>
     </q-card>
