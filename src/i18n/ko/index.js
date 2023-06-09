@@ -26,6 +26,7 @@ export default {
   join: {
     confirmPassword: '비밀번호 확인',
     join: '가입',
+    termsPolicy: "가입하게 되면 Tradurs의 {'|'}{'#'}terms{'#'}약관{'|'}, {'|'}{'#'}privacy-policy{'#'}개인정보 처리방침{'|'} 및 {'|'}{'#'}cookies-policy{'#'}쿠키 정책{'|'}에 동의하게 됩니다.",
     success: '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
   },
   forgot: {

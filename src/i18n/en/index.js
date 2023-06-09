@@ -26,6 +26,7 @@ export default {
   join: {
     confirmPassword: 'Confirm Password',
     join: 'Join',
+    termsPolicy: "By joining, you agree to Tradurs {'|'}{'#'}terms{'#'}Terms{'|'}, {'|'}{'#'}privacy-policy{'#'}Privacy Policy{'|'} and {'|'}{'#'}cookies-policy{'#'}Cookies Policy{'|'}.",
     success: 'We\'ve sent an email to verify your email address and activate your account. The link in the email will expire in 24 hours.'
   },
   forgot: {

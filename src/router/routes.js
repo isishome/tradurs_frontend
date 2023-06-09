@@ -8,14 +8,29 @@ export const routes = [
     path: '/join',
     name: 'Join',
     component: () => import('@/pages/Join.vue'),
-    props: true,
     children: [
       {
-        path: ':email',
-        name: 'Join-Email',
-        component: () => import('@/pages/Join.vue')
+        path: 'policy/terms',
+        name: 'Policy-Terms',
+        component: () => import('@/pages/policy/Terms.vue')
+      },
+      {
+        path: 'policy/privacy',
+        name: 'Policy-Privacy',
+        component: () => import('@/pages/policy/Privacy.vue')
+      },
+      {
+        path: 'policy/cookies',
+        name: 'Policy-Cookies',
+        component: () => import('@/pages/policy/Cookies.vue')
       }
     ]
+  },
+  {
+    path: '/join/:email',
+    name: 'Join-Email',
+    component: () => import('@/pages/Join.vue'),
+    props: true
   },
   {
     path: '/sign',

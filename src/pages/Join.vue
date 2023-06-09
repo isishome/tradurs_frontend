@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject, reactive } from 'vue'
+import { ref, inject, reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
@@ -32,6 +32,24 @@ const updateComplexity = (val) => {
 const cpw = ref(tempPw)
 updateComplexity(info.value.pw)
 
+const termsPolicy = computed(() => t('join.termsPolicy').split('|'))
+const thumbStyle = {
+  right: '4px',
+  backgroundColor: '#777777',
+  width: '3px',
+  transform: 'scaleY(0.96)',
+  opacity: 0.5,
+  zIndex: 3000
+}
+const dialogShow = computed(() => ['Policy-Terms', 'Policy-Privacy', 'Policy-Cookies'].includes(route.name))
+const showDialog = (name) => {
+  router.push({ name: `Policy-${name}` })
+}
+
+const dialogHide = () => {
+  router.push({ name: 'Join' })
+}
+
 const join = () => {
   disable.value = true
   axios.post('/account/join', info.value)
@@ -54,8 +72,8 @@ const join = () => {
       <q-card-section class="text-center">
         <q-btn :disable="disable" class="no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
           <div class="row justify-center q-gutter-x-xs items-center">
-            <img src="images/tradurs_logo.svg" width="40" />
-            <img src="images/tradurs_text.svg" height="30" />
+            <img src="/images/tradurs_logo.svg" width="40" />
+            <img src="/images/tradurs_text.svg" height="30" />
           </div>
         </q-btn>
       </q-card-section>
@@ -74,16 +92,70 @@ const join = () => {
           </q-input>
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="cpw" type="password"
             maxlength="16" :rules="[val => val && info.pw === val || '']" :label="t('join.confirmPassword')" />
+          <div class="q-my-sm text-caption terms-policy">
+            <template v-for="(word, index) in termsPolicy">
+              <span :key="index" v-if="word.indexOf('#terms#') !== -1">
+                <a href="" @click.prevent="showDialog('Terms')">{{ word.replace(/#[a-zA-Z-]*#/gi, '') }}</a>
+              </span>
+              <span :key="`pp${index}`" v-else-if="word.indexOf('#privacy-policy#') !== -1">
+                <a href="" @click.prevent="showDialog('Privacy')">{{ word.replace(/#[a-zA-Z-]*#/gi, '') }}</a>
+              </span>
+              <span :key="`cp${index}`" v-else-if="word.indexOf('#cookies-policy#') !== -1">
+                <a href="" @click.prevent="showDialog('Cookies')">{{ word.replace(/#[a-zA-Z-]*#/gi, '') }}</a>
+              </span>
+              <span :key="`else${index}`" v-else>
+                {{ word }}
+              </span>
+            </template>
+          </div>
           <q-btn no-caps :loading="disable" outline :ripple="false" text-color="secondary"
             class="bg-primary shadow-1 text-weight-bold" :label="t('join.join')" padding="md" type="submit" />
         </q-form>
       </q-card-section>
     </q-card>
   </div>
+  <q-dialog v-model="dialogShow" full-height persistent :maximized="$q.screen.lt.md" @hide="dialogHide">
+    <q-card :class="['column no-scroll no-padding', $q.screen.lt.md ? '' : 'policy-width']">
+      <q-card-section class="q-pa-sm gt-sm text-right">
+        <div>
+          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join' }">
+            <img src="@/assets/icons/close.svg" width="24" />
+          </q-btn>
+        </div>
+      </q-card-section>
+      <q-separator class="gt-sm" />
+      <q-card-section class="col full-width no-padding">
+        <q-scroll-area :thumb-style="thumbStyle" class="fit">
+          <router-view />
+        </q-scroll-area>
+      </q-card-section>
+      <q-separator class="lt-md" />
+      <q-card-section class="lt-md text-right q-pa-sm">
+        <div>
+          <q-btn flat round v-close-popup size="sm">
+            <img src="@/assets/icons/close.svg" width="24" />
+          </q-btn>
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 <style scoped>
 .join {
   max-width: 400px;
   width: 90vw;
+}
+
+.terms-policy a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: bold;
+  word-break: keep-all;
+}
+
+.policy-width {
+  width: 50vw !important;
+  max-width: none !important;
+  min-width: 1024px;
 }
 </style>

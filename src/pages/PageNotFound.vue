@@ -9,8 +9,8 @@ const { t } = useI18n({ useScope: 'global' })
 <template>
   <div class="absolute-center column items-center q-gutter-sm full-width">
     <div class="row justify-center items-center q-gutter-sm">
-      <img class="logo" src="images/tradurs_logo.svg" width="48" />
-      <img class="letter" src="images/tradurs_text.svg" height="40" />
+      <img class="logo" src="/images/tradurs_logo.svg" width="48" />
+      <img class="letter" src="/images/tradurs_text.svg" height="40" />
     </div>
     <div class="text-h6">{{ t('page.pnf') }}
     </div>
