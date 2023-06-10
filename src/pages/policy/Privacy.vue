@@ -1,10 +1,12 @@
 <script setup>
+import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 
+const $q = useQuasar()
 const { locale } = useI18n({ useScope: 'global' })
 </script>
 <template>
-  <div class="terms-policy" :class="$q.screen.gt.sm ? 'q-pa-xl' : 'q-pa-sm'">
+  <div class="terms-policy q-py-lg" :class="$q.screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
     <template v-if="locale === 'en'">
       <div class="text-h4 q-pb-lg">Privacy Policy</div>
       <p class="text-weight-bold">('tradurs.com' hereinafter referred to as 'Tradurs') will formulate and

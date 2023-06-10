@@ -114,7 +114,8 @@ const join = () => {
       </q-card-section>
     </q-card>
   </div>
-  <q-dialog v-model="dialogShow" full-height persistent :maximized="$q.screen.lt.md" @hide="dialogHide">
+  <q-dialog v-model="dialogShow" full-height persistent :maximized="$q.screen.lt.md" transition-show="none"
+    transition-hide="none" :transition-duration="0" @hide="dialogHide">
     <q-card :class="['column no-scroll no-padding', $q.screen.lt.md ? '' : 'policy-width']">
       <q-card-section class="q-pa-sm gt-sm text-right">
         <div>
@@ -132,7 +133,7 @@ const join = () => {
       <q-separator class="lt-md" />
       <q-card-section class="lt-md text-right q-pa-sm">
         <div>
-          <q-btn flat round v-close-popup size="sm">
+          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join' }">
             <img src="@/assets/icons/close.svg" width="24" />
           </q-btn>
         </div>

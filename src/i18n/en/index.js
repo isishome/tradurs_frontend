@@ -7,7 +7,7 @@ export default {
   sign: {
     email: 'Email Address',
     password: 'Password',
-    remember: 'Remeber Email Address',
+    remember: 'Remeber',
     forgot: 'Forgot your password?',
     signIn: 'Sign in',
     new: 'New to Tradurs?',
