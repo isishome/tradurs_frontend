@@ -64,7 +64,7 @@ const { locale } = useI18n({ useScope: 'global' })
           <ol>
             <li>e-mail</li>
             <li>password</li>
-            <li>another name</li>
+            <li>BattleTag™</li>
             <li>Other items deemed necessary by Tradurs</li>
           </ol>
         </li>
@@ -317,7 +317,7 @@ const { locale } = useI18n({ useScope: 'global' })
         <ol>
           <li>이메일</li>
           <li>패스워드</li>
-          <li>별칭</li>
+          <li>BattleTag™</li>
           <li>기타 Tradurs이 필요하다고 인정하는 사항 </li>
         </ol>
       </ul>

@@ -71,7 +71,6 @@ const { locale } = useI18n({ useScope: 'global' })
       <p>SraSome handles the following personal information items:</p>
       <ul>
         <li>Required: Email, Password, Access Log, Cookie, IP Address</li>
-        <li>Choice: Hobby</li>
       </ul>
       <div class="text-h6">Article 6 (Disposal of personal information)</div>
       <ul>
@@ -203,7 +202,6 @@ const { locale } = useI18n({ useScope: 'global' })
       <p>Tradurs는 다음의 개인정보 항목을 처리하고 있습니다.</p>
       <ul>
         <li>필수항목 : 이메일, 비밀번호, 접속 로그, 쿠키, 접속 IP 정보</li>
-        <li>선택항목 : 취미</li>
       </ul>
       <div class="text-h6">제6조(개인정보의 파기)</div>
       <ul>
