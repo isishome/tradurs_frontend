@@ -71,7 +71,7 @@ const changeBattleTag = () => {
       {{ t('info.changePassword') }}
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
-      <q-form ref="form1" class="column q-gutter-y-md" @submit="changePassword">
+      <q-form ref="form1" class="column q-gutter-y-md" no-error-focus @submit="changePassword">
         <q-input dense no-error-icon hide-bottom-space outlined type="password" v-model="info.op"
           :label="t('info.currentPassword')" maxlength="16" :rules="[val => val && val.length >= 8 || '']"
           class="text-h6" />
@@ -92,11 +92,11 @@ const changeBattleTag = () => {
       </q-form>
     </q-card-section>
     <q-separator inset class="q-my-md" />
-    <q-card-section class="text-weight-bold text-h6  q-pa-sm">
+    <q-card-section class="text-weight-bold text-h6 q-pa-sm">
       {{ t('info.changeBattleTag') }}
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
-      <q-form ref="form2" class="column q-gutter-y-md" @submit="changeBattleTag">
+      <q-form ref="form2" class="column q-gutter-y-md" no-error-focus @submit="changeBattleTag">
         <q-input dense no-error-icon hide-bottom-space outlined v-model="battlenet.battleTag" :label="t('info.battleTag')"
           maxlength="16"
           :rules="[val => val && (/^([ㄱ-ㅎㅏ-ㅣ가-힣]{1}[ㄱ-ㅎㅏ-ㅣ가-힣0-9]{1,7}#[0-9]{4,5}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,5})$/g).test(val) || '']"
