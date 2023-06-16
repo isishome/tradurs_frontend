@@ -2,6 +2,7 @@
 import { inject, ref, reactive, computed, nextTick } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { useAccountStore } from '@/stores/account'
 import { checkComplexity } from '@/common'
 
 const axios = inject('axios')
@@ -9,8 +10,9 @@ const $q = useQuasar()
 const { t } = useI18n({ useScope: 'global' })
 
 const screen = computed(() => $q.screen)
+const store = useAccountStore()
 
-const form = ref(null)
+const form1 = ref(null)
 const info = ref({
   op: null,
   np: null
@@ -25,7 +27,8 @@ const updateComplexity = (val) => {
   complexity.value = checkComplexity(val)
   complexity.color = color[complexity.value / 20]
 }
-const change = () => {
+
+const changePassword = () => {
   axios.post('/account/change', info.value)
     .then(() => {
       $q.notify({
@@ -38,36 +41,68 @@ const change = () => {
       complexity.value = 0
       complexity.color = 'grey'
       nextTick(() => {
-        form.value.resetValidation()
+        form1.value.resetValidation()
+      })
+    })
+    .catch(() => { })
+}
+
+const form2 = ref(null)
+const battlenet = reactive({ battleTag: store.info.battleTag })
+const changeBattleTag = () => {
+  axios.post('battlenet/tag/update', battlenet)
+    .then(() => {
+      $q.notify({
+        color: 'positive',
+        message: t('info.successBattleTag')
+      })
+      nextTick(() => {
+        form2.value.resetValidation()
       })
     })
     .catch(() => { })
 }
 </script>
 <template>
-  <Title sub style="margin-top:0">{{ t('info.user') }}</Title>
+  <div class="text-h5 text-weight-bold">{{ t('info.user') }}</div>
+  <q-separator class="q-my-sm" />
   <q-card flat>
-    <q-card-section class="text-weight-bold text-h5">
+    <q-card-section class="text-weight-bold text-h6 q-pa-sm">
       {{ t('info.changePassword') }}
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
-      <q-form ref="form" class="column q-gutter-y-md" @submit="change">
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.op"
+      <q-form ref="form1" class="column q-gutter-y-md" @submit="changePassword">
+        <q-input dense no-error-icon hide-bottom-space outlined type="password" v-model="info.op"
           :label="t('info.currentPassword')" maxlength="16" :rules="[val => val && val.length >= 8 || '']"
-          class="text-h5" />
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="info.np" :label="t('info.newPassword')"
-          maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
-          @update:model-value="updateComplexity" class="text-h5">
+          class="text-h6" />
+        <q-input dense no-error-icon hide-bottom-space outlined type="password" v-model="info.np"
+          :label="t('info.newPassword')" maxlength="16"
+          :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']" @update:model-value="updateComplexity"
+          class="text-h6">
           <template #append>
             <q-knob readonly v-model="complexity.value" size="24px" :thickness="0.4" :color="complexity.color"
               track-color="grey-3" class="text-primary q-ma-md" />
           </template>
         </q-input>
-        <q-input no-error-icon hide-bottom-space outlined type="password" v-model="cp"
+        <q-input dense no-error-icon hide-bottom-space outlined type="password" v-model="cp"
           :label="t('info.confirmNewPassword')" maxlength="16" :rules="[val => val && val === info.np || '']"
-          class="text-h5" />
+          class="text-h6" />
         <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
-          :label="t('info.change')" padding="lg" type="submit" />
+          :label="t('info.change')" padding="sm" type="submit" />
+      </q-form>
+    </q-card-section>
+    <q-separator inset class="q-my-md" />
+    <q-card-section class="text-weight-bold text-h6  q-pa-sm">
+      {{ t('info.changeBattleTag') }}
+    </q-card-section>
+    <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
+      <q-form ref="form2" class="column q-gutter-y-md" @submit="changeBattleTag">
+        <q-input dense no-error-icon hide-bottom-space outlined v-model="battlenet.battleTag" :label="t('info.battleTag')"
+          maxlength="16"
+          :rules="[val => val && (/^([ㄱ-ㅎㅏ-ㅣ가-힣]{1}[ㄱ-ㅎㅏ-ㅣ가-힣0-9]{1,7}#[0-9]{4,5}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,5})$/g).test(val) || '']"
+          class="text-subtitle1" />
+        <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
+          :label="t('info.change')" padding="sm" type="submit" />
       </q-form>
     </q-card-section>
   </q-card>

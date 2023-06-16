@@ -16,12 +16,15 @@ export default {
   },
   info: {
     user: '사용자 정보',
+    battleTag: 'BattleTag™',
     changePassword: '비밀번호 변경',
+    changeBattleTag: 'BattleTag™ 변경',
     currentPassword: '현재 비밀번호',
     newPassword: '새 비밀번호',
     confirmNewPassword: '새 비밀번호 확인',
     change: '변경',
-    success: '비밀번호가 변경되었습니다'
+    success: '비밀번호가 변경되었습니다',
+    successBattleTag: 'BattleTag™가 변경되었습니다'
   },
   join: {
     confirmPassword: '비밀번호 확인',

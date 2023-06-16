@@ -16,12 +16,15 @@ export default {
   },
   info: {
     user: 'User Information',
+    battleTag: 'BattleTag™',
     changePassword: 'Change Password',
+    changeBattleTag: 'Change BattleTag™',
     currentPassword: 'Current Password',
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
     change: 'Change',
-    success: 'Your password has been changed'
+    success: 'Your password has been changed',
+    successBattleTag: 'Your BattleTag™ has been changed'
   },
   join: {
     confirmPassword: 'Confirm Password',
