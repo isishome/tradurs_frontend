@@ -99,7 +99,7 @@ const changeBattleTag = () => {
       <q-form ref="form2" class="column q-gutter-y-md" no-error-focus @submit="changeBattleTag">
         <q-input dense no-error-icon hide-bottom-space outlined v-model="battlenet.battleTag" :label="t('info.battleTag')"
           maxlength="24"
-          :rules="[val => val && (/^([ㄱ-ㅎㅏ-ㅣ가-힣]{1}[ㄱ-ㅎㅏ-ㅣ가-힣0-9]{1,7}#[0-9]{4,}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,})$/g).test(val) || '']"
+          :rules="[val => val && (/^([가-힣ぁ-ゔァ-ヴー々〆〤一-龥]{1}[가-힣ぁ-ゔァ-ヴー々〆〤一-龥0-9]{1,7}#[0-9]{4,}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,})$/g).test(val) || '']"
           class="text-subtitle1" />
         <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
           :label="t('info.change')" padding="sm" type="submit" />
