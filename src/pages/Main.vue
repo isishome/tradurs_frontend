@@ -44,7 +44,7 @@ onMounted(() => {
               </q-card>
             </q-item-section>
             <q-item-section class="text-white">
-              <q-item-label lines="2" class="text-weight-bold text-subtitle2 absolute">{{ item.name
+              <q-item-label lines="1" class="text-weight-bold text-subtitle2 absolute">{{ item.name
               }}</q-item-label>
               <q-item-label
                 class="text-weight-bold text-right text-body2 absolute-top-right row items-center q-gutter-x-xs"
