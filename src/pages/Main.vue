@@ -44,11 +44,12 @@ onMounted(() => {
               </q-card>
             </q-item-section>
             <q-item-section>
-              <q-item-label lines="2" class="text-weight-bold text-subtitle2">{{ item.name
+              <q-item-label lines="2" class="text-weight-bold text-subtitle2" style="line-height: 1.4 !important;">{{
+                item.name
               }}</q-item-label>
               <q-item-label
                 class="text-weight-bold text-right text-body2 absolute-bottom-right row items-center q-gutter-x-xs"
-                style="bottom:10px;right:10px">
+                style="bottom:16px;right:16px">
                 <q-icon v-if="item.price.currency === 'gold'" class="price" :name="`img:${price}`" size="16px" />
                 <div>
                   {{ item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString(),
