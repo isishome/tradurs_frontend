@@ -33,25 +33,27 @@ onMounted(() => {
     </div>
     <q-separator class="q-my-xl" />
     <div class="row q-col-gutter-lg">
-      <div class="col-12 col-sm-6" v-for="item in     store.items    " :key="item.itemId">
-        <q-card flat class="item-card">
-          <q-item clickable :href="`${d4}/item/${item.itemId}`" class="q-pa-lg">
+      <div class="col-12 col-sm-6" v-for="item in store.items" :key="item.itemId">
+        <q-card flat bordered class="item-card">
+          <q-item clickable v-ripple :href="`${d4}/item/${item.itemId}`" class="q-pa-lg">
             <q-item-section top avatar>
-              <q-card flat class="q-pa-sm bg-transparent">
+              <q-card flat bordered class="q-pa-sm bg-transparent bg-grey-3">
                 <q-img
                   :src="item.itemType === 'aspect' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}.webp` : item.itemTypeValue1 === 'gem' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` : `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`"
                   alt="Tradurs Item Image" class="item-image" />
               </q-card>
             </q-item-section>
-            <q-item-section class="text-white">
-              <q-item-label lines="1" class="text-weight-bold text-subtitle2 absolute">{{ item.name
+            <q-item-section>
+              <q-item-label lines="2" class="text-weight-bold text-subtitle2">{{ item.name
               }}</q-item-label>
               <q-item-label
-                class="text-weight-bold text-right text-body2 absolute-top-right row items-center q-gutter-x-xs"
-                style="top:4px;right:4px">
+                class="text-weight-bold text-right text-body2 absolute-bottom-right row items-center q-gutter-x-xs"
+                style="bottom:10px;right:10px">
                 <q-icon v-if="item.price.currency === 'gold'" class="price" :name="`img:${price}`" size="16px" />
-                <q-chip dense square class="text-weight-bold inset-shadow" color="yellow-8" :label="item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString(),
-                  'decimal')) : t('offer.title')" />
+                <div>
+                  {{ item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString(),
+                    'decimal')) : t('offer.title') }}
+                </div>
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -70,17 +72,13 @@ onMounted(() => {
 }
 
 .item-card {
-  background-color: rgba(80, 0, 0);
-  box-shadow: inset 0 4px 4px 0 rgba(180, 0, 0), inset 0 -4px 2px 0 rgba(60, 0, 0), 0 0 0 1px rgba(0, 0, 0, 1) !important;
-}
-
-.price {
-  filter: invert(73%) sepia(71%) saturate(559%) hue-rotate(339deg) brightness(107%) contrast(97%);
+  border-width: 4px;
+  border-color: rgba(150, 150, 150, 1);
+  background: rgba(250, 250, 250, 1);
 }
 
 .item-image {
   width: 48px;
   height: auto;
-  filter: brightness(140%);
 }
 </style>
