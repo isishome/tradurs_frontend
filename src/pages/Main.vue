@@ -33,7 +33,7 @@ onMounted(() => {
     </div>
     <q-separator class="q-my-xl" />
     <div class="row q-col-gutter-lg">
-      <div class="col-12 col-sm-6" v-for="item in  store.items " :key="item.itemId">
+      <div class="col-12 col-sm-6" v-for="item in     store.items    " :key="item.itemId">
         <q-card flat class="item-card">
           <q-item clickable :href="`${d4}/item/${item.itemId}`" class="q-pa-lg">
             <q-item-section top avatar>
@@ -44,13 +44,13 @@ onMounted(() => {
               </q-card>
             </q-item-section>
             <q-item-section class="text-white">
-              <q-item-label class="text-weight-bold text-subtitle2 absolute">{{ item.name }}</q-item-label>
+              <q-item-label lines="2" class="text-weight-bold text-subtitle2 absolute">{{ item.name }}</q-item-label>
               <q-item-label
                 class="text-weight-bold text-right text-body2 absolute-top-right row items-center q-gutter-x-xs"
-                style="top:10px;right:10px">
-                <q-icon class="price" :name="`img:${price}`" size="16px" />
-                <q-chip dense square class="text-weight-bold inset-shadow" color="yellow-8" :label="n(Number.parseFloat(item.price.currencyValue ? item.price.currencyValue.toString() : '0'),
-                  'decimal')" />
+                style="top:4px;right:4px">
+                <q-icon v-if="item.price.currency === 'gold'" class="price" :name="`img:${price}`" size="16px" />
+                <q-chip dense square class="text-weight-bold inset-shadow" color="yellow-8" :label="item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString(),
+                  'decimal')) : t('offer.title')" />
               </q-item-label>
             </q-item-section>
           </q-item>

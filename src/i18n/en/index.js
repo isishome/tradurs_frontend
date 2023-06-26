@@ -41,6 +41,9 @@ export default {
     expired: 'The verification code has expired and a new verification email has been sent',
     new: 'A temporary password has been sent to your email address'
   },
+  offer: {
+    title: 'Get An Offer'
+  },
   page: {
     pnf: 'Page not found'
   },
