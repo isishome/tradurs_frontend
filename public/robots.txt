@@ -1,2 +1,8 @@
 User-agent: *
+Disallow: /sign/
+Disallow: /join/
+Disallow: /forgot/
+Disallow: /verify/
+
+User-agent: *
 Allow: /
