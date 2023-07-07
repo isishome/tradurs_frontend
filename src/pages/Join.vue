@@ -80,8 +80,8 @@ const join = () => {
       <q-card-section>
         <q-form autocomplete="on" class="column q-gutter-y-md" @submit="join">
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space :readonly="email !== null"
-            v-model="info.email" type="email" maxlength="320"
-            :rules="[val => val && val.length > - 6 && checkEmail(val) || '']" :label="t('sign.email')" />
+            v-model="info.email" type="email" maxlength="320" :rules="[val => val && checkEmail(val) || '']"
+            :label="t('sign.email')" />
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="info.pw" type="password"
             maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
             :label="t('sign.password')" @update:model-value="updateComplexity">

@@ -3,9 +3,9 @@ import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 
 const $q = useQuasar()
-const { t, locale } = useI18n({ useScope: 'global' })
+const { locale } = useI18n({ useScope: 'global' })
 
-const lang = $q.cookies.has('tradurs.lang') ? $q.cookies.get('tradurs.lang') : $q.lang.getLocale()?.substring(0, 2) || 'ko'
+const lang = $q.cookies.has('tradurs.lang') ? $q.cookies.get('tradurs.lang') : 'ko'
 locale.value = lang
 
 if (import.meta.env.PROD) {

@@ -18,6 +18,10 @@ export const checkComplexity = (pw) => {
   return score
 }
 
+export const checkBattleTag = (battleTag) => {
+  return /^([가-힣ぁ-ゔァ-ヴー々〆〤一-龥]{1}[가-힣ぁ-ゔァ-ヴー々〆〤一-龥0-9]{1,7}#[0-9]{4,}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,})$/g.test(battleTag)
+}
+
 // sleep
 export const sleep = (ms) => {
   return new Promise((resolve) => {

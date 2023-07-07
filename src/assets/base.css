@@ -41,3 +41,12 @@ body {
     padding-left: calc((100vw - 840px) / 2) !important;
   }
 }
+
+.withdrawal .q-dialog__title {
+  color: var(--q-negative);
+  font-weight: 700;
+}
+
+.withdrawal .q-dialog__message {
+  font-weight: 700;
+}

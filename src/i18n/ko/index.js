@@ -4,6 +4,11 @@ export default {
   games: {
     d4: '디아블로® IV'
   },
+  btn: {
+    cancel: '취소',
+    change: '변경',
+    withdrawal: '탈퇴'
+  },
   sign: {
     email: '이메일 주소',
     password: '비밀번호',
@@ -18,13 +23,18 @@ export default {
     user: '사용자 정보',
     battleTag: 'BattleTag™',
     changePassword: '비밀번호 변경',
-    changeBattleTag: 'BattleTag™ 변경',
     currentPassword: '현재 비밀번호',
     newPassword: '새 비밀번호',
     confirmNewPassword: '새 비밀번호 확인',
-    change: '변경',
+    changeBattleTag: 'BattleTag™ 변경',
+    alertBattleTag: 'BattleTag™ 수정은 1회만 허용됩니다.',
+    withdrawal: '회원 탈퇴',
+    withdrawalBtn: '탈퇴',
+    alertWithdrawal: '탈퇴 시 회원 정보가 삭제됩니다.',
+    confirmWithdrawal: '탈퇴 시 회원 정보가 모두 삭제되며, 사용 중인 이메일 주소로 재가입 할 수 없습니다. 탈퇴하시겠습니까?',
     success: '비밀번호가 변경되었습니다',
-    successBattleTag: 'BattleTag™가 변경되었습니다'
+    successBattleTag: 'BattleTag™가 변경되었습니다',
+    successWithdrawal: '회원 탈퇴가 완료되었습니다'
   },
   join: {
     confirmPassword: '비밀번호 확인',

@@ -47,7 +47,7 @@ const forgot = () => {
       <q-card-section>
         <q-form class="column q-gutter-y-md" @submit="forgot">
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="email" type="email"
-            maxlength="320" :rules="[val => val && val.length >= 6 && checkEmail(val) || '']" :label="t('sign.email')" />
+            maxlength="320" :rules="[val => val && checkEmail(val) || '']" :label="t('sign.email')" />
           <q-btn no-caps :loading="disable" outline :ripple="false" text-color="secondary"
             class="bg-primary shadow-1 text-weight-bold" :label="t('forgot.send')" type="submit" padding="md" />
         </q-form>

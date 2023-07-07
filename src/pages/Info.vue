@@ -3,7 +3,8 @@ import { inject, ref, reactive, computed, nextTick } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useAccountStore } from '@/stores/account'
-import { checkComplexity } from '@/common'
+import { useRouter } from 'vue-router'
+import { checkComplexity, checkBattleTag, checkEmail } from '@/common'
 
 const axios = inject('axios')
 const $q = useQuasar()
@@ -11,6 +12,7 @@ const { t } = useI18n({ useScope: 'global' })
 
 const screen = computed(() => $q.screen)
 const store = useAccountStore()
+const router = useRouter()
 
 const form1 = ref(null)
 const info = ref({
@@ -48,8 +50,13 @@ const changePassword = () => {
 }
 
 const form2 = ref(null)
-const battlenet = reactive({ battleTag: store.info.battleTag })
+const battlenet = reactive({
+  battleTag: store.info.battleTag,
+  modifiable: store.info.modifiable,
+  loading: false
+})
 const changeBattleTag = () => {
+  battlenet.loading = true
   axios.post('battlenet/tag/update', battlenet)
     .then(() => {
       $q.notify({
@@ -61,6 +68,62 @@ const changeBattleTag = () => {
       })
     })
     .catch(() => { })
+    .then(() => {
+      store.checkSign(true)
+        .then(() => {
+          battlenet.battleTag = store.info.battleTag
+          battlenet.modifiable = store.info.modifiable
+        })
+        .catch(() => { })
+        .then(() => {
+          battlenet.loading = false
+        })
+    })
+}
+
+const form3 = ref(null)
+const withdrawal = reactive({
+  email: null,
+  loading: false
+})
+const confirmWithdrawal = () => {
+  withdrawal.loading = true
+  axios.post('account/withdrawal', withdrawal)
+    .then(() => {
+      $q.notify({
+        color: 'positive',
+        message: t('info.successWithdrawal')
+      })
+
+      store.signed = false
+      store.info = {}
+      router.push({ name: 'Main' })
+    })
+    .catch(() => { })
+    .then(() => {
+      withdrawal.loading = false
+    })
+}
+const proceedWithdrawal = () => {
+  $q.dialog({
+    title: t('info.withdrawal'),
+    class: 'withdrawal',
+    message: t('info.confirmWithdrawal'),
+    cancel: {
+      unelevated: true,
+      color: 'grey',
+      label: t('btn.cancel')
+    },
+    ok: {
+      unelevated: true,
+      color: 'negative',
+      class: 'text-weight-bold',
+      label: t('info.withdrawalBtn')
+    },
+    persistent: true
+  }).onOk(() => {
+    confirmWithdrawal()
+  })
 }
 </script>
 <template>
@@ -88,21 +151,40 @@ const changeBattleTag = () => {
           :label="t('info.confirmNewPassword')" maxlength="16" :rules="[val => val && val === info.np || '']"
           class="text-h6" />
         <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
-          :label="t('info.change')" padding="sm" type="submit" />
+          :label="t('btn.change')" padding="sm" type="submit" />
       </q-form>
     </q-card-section>
     <q-separator inset class="q-my-md" />
-    <q-card-section class="text-weight-bold text-h6 q-pa-sm">
-      {{ t('info.changeBattleTag') }}
+    <q-card-section class="q-pa-sm">
+      <div class="row items-center q-gutter-x-md">
+        <div class="text-weight-bold text-h6">{{ t('info.changeBattleTag') }}</div>
+        <div class="text-caption text-negative">{{ t('info.alertBattleTag') }}</div>
+      </div>
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form ref="form2" class="column q-gutter-y-md" no-error-focus @submit="changeBattleTag">
-        <q-input dense no-error-icon hide-bottom-space outlined v-model="battlenet.battleTag" :label="t('info.battleTag')"
-          maxlength="24"
-          :rules="[val => val && (/^([가-힣ぁ-ゔァ-ヴー々〆〤一-龥]{1}[가-힣ぁ-ゔァ-ヴー々〆〤一-龥0-9]{1,7}#[0-9]{4,}|[a-zA-Z]{1}[a-zA-Z0-9]{2,11}#[0-9]{4,})$/g).test(val) || '']"
-          class="text-subtitle1" />
-        <q-btn outline :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
-          :label="t('info.change')" padding="sm" type="submit" />
+        <q-input dense no-error-icon hide-bottom-space outlined :disable="!battlenet.modifiable || battlenet.loading"
+          v-model="battlenet.battleTag" :label="t('info.battleTag')" maxlength="24"
+          :rules="[val => val && checkBattleTag(val) || '']" class="text-subtitle1" />
+        <q-btn outline :disable="!battlenet.modifiable" :loading="battlenet.loading" :ripple="false"
+          text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.change')" padding="sm"
+          type="submit" />
+      </q-form>
+    </q-card-section>
+    <q-separator inset class="q-my-md" />
+    <q-card-section class="q-pa-sm">
+      <div class="row items-center q-gutter-x-md">
+        <div class="text-weight-bold text-h6">{{ t('info.withdrawal') }}</div>
+        <div class="text-caption text-negative">{{ t('info.alertWithdrawal') }}</div>
+      </div>
+    </q-card-section>
+    <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
+      <q-form ref="form3" class="column q-gutter-y-md" no-error-focus @submit="proceedWithdrawal">
+        <q-input :disable="withdrawal.loading" outlined no-error-icon hide-bottom-space v-model="withdrawal.email"
+          type="email" maxlength="320" :rules="[val => val && checkEmail(val) || '']" :label="t('sign.email')" />
+        <q-btn outline :disable="!(withdrawal.email && checkEmail(withdrawal.email))" :loading="withdrawal.loading"
+          :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.withdrawal')"
+          padding="sm" type="submit" />
       </q-form>
     </q-card-section>
   </q-card>

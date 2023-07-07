@@ -4,6 +4,11 @@ export default {
   games: {
     d4: 'Diablo® IV'
   },
+  btn: {
+    cancel: 'Cancel',
+    change: 'Change',
+    withdrawal: 'Withdrawal'
+  },
   sign: {
     email: 'Email Address',
     password: 'Password',
@@ -18,13 +23,17 @@ export default {
     user: 'User Information',
     battleTag: 'BattleTag™',
     changePassword: 'Change Password',
-    changeBattleTag: 'Change BattleTag™',
     currentPassword: 'Current Password',
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
-    change: 'Change',
+    changeBattleTag: 'Change BattleTag™',
+    alertBattleTag: 'BattleTag™ modifications are allowed only once.',
+    withdrawal: 'Withdrawal',
+    alertWithdrawal: 'Member information will be deleted upon withdrawal.',
+    confirmWithdrawal: 'When you withdrawal, all member information is deleted, and you cannot re-register with the email address you are using. Are you sure you want to withdrawal?',
     success: 'Your password has been changed',
-    successBattleTag: 'Your BattleTag™ has been changed'
+    successBattleTag: 'Your BattleTag™ has been changed',
+    successWithdrawal: 'Member withdrawal is complete'
   },
   join: {
     confirmPassword: 'Confirm Password',

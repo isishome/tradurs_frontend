@@ -9,7 +9,7 @@ export const instance = axios.create({
   withCredentials: true
 })
 
-instance.defaults.headers.common['Accept-Language'] = Cookies.has('tradurs.lang') ? Cookies.get('tradurs.lang') : Quasar.lang.getLocale() || 'ko-KR'
+instance.defaults.headers.common['Accept-Language'] = Cookies.has('tradurs.lang') ? Cookies.get('tradurs.lang') : 'ko-KR'
 
 instance.interceptors.response.use(function (response) {
   return response

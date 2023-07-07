@@ -7,8 +7,8 @@ export const useAccountStore = defineStore('account', {
     info: {}
   }),
   actions: {
-    async checkSign() {
-      if (this.signed === null) {
+    async checkSign(forced) {
+      if (this.signed === null || forced) {
         const response = await instance.get('/account/signed')
         this.info = response.data
         this.signed = typeof (response.data.id) !== 'undefined'

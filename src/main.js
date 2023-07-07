@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import { instance } from '@/axios'
-import { Quasar, Cookies, Notify } from 'quasar'
+import { Quasar, Cookies, Notify, Dialog } from 'quasar'
 import { router } from '@/router'
 import { i18n } from './i18n'
 import Title from '@/components/paragraph/Title.vue'
@@ -18,7 +18,7 @@ import 'quasar/dist/quasar.css'
 import '@/assets/base.css'
 
 createApp(App).provide('axios', instance).use(Quasar, {
-  plugins: { Cookies, Notify }, // import Quasar plugins and add here
+  plugins: { Cookies, Notify, Dialog }, // import Quasar plugins and add here
   config: {
     notify: {
       position: 'top'
