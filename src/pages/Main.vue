@@ -53,14 +53,14 @@ onMounted(() => {
             <q-card-section class="row justify-center">
               <q-skeleton type="circle" round width="150px" height="150px" />
             </q-card-section>
-            <q-card-section class="q-pa-lg">
+            <q-card-section class="q-pa-xl">
               <q-skeleton type="QChip" style="border-radius: 40px;" round width="100%" height="60px" />
             </q-card-section>
           </q-card>
         </div>
       </template>
       <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in store.items" :key="item.itemId"
-        transition="jump-up" :transition-duration="1000" once>
+        transition="jump-up" once>
         <q-card class="item-card" :class="$q.screen.lt.sm ? 'q-ma-xl' : $q.screen.lt.md ? 'q-ma-sm' : 'q-ma-lg'">
           <q-card-section class="text-right q-pa-lg">
             <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
@@ -76,8 +76,8 @@ onMounted(() => {
               :src="item.itemType === 'aspect' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}.webp` : item.itemTypeValue1 === 'gem' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` : `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`"
               alt="Tradurs Item Image" width="30%" />
           </q-card-section>
-          <q-card-section class="q-pa-lg">
-            <q-chip dense size="lg" color="white" class="price  full-width">
+          <q-card-section class="q-pa-xl">
+            <q-chip dense size="lg" color="white" class="price full-width">
               <div class="row items-center justify-between full-width">
                 <q-avatar color="white" class="avatar" rounded :icon="`img:${price}`" />
                 <div>
@@ -113,7 +113,7 @@ onMounted(() => {
   background: url('/images/back.webp');
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   filter: brightness(1.4);
-  font-size: 1.4em;
+  font-size: 24px;
   letter-spacing: 2px;
   font-weight: 700 !important;
   text-align: center;
@@ -121,9 +121,8 @@ onMounted(() => {
 
 .price {
   border-radius: 30px;
-  font-size: 1.4em !important;
+  font-size: 24px !important;
   padding: 30px 20px !important;
-  line-height: 4;
 }
 
 .avatar {
