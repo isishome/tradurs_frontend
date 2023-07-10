@@ -7,7 +7,6 @@ import { useAccountStore } from '@/stores/account'
 
 const prod = import.meta.env.PROD
 
-
 const axios = inject('axios')
 const route = useRoute()
 const router = useRouter()
@@ -53,7 +52,6 @@ const setLang = (lang) => {
   axios.defaults.headers.common['Accept-Language'] = lang
 }
 
-
 const key = ref(uid())
 const reload = () => {
   key.value = uid()
@@ -70,11 +68,9 @@ watch(() => route.name, (val, old) => {
 const size = computed(() => $q.screen.width < 728 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
-  if (prod.value) {
-    const adsbygoogle = window.adsbygoogle || []
-    adsbygoogle.push({})
-    adsbygoogle.push({})
-  }
+  const adsbygoogle = window.adsbygoogle || []
+  adsbygoogle.push({})
+  adsbygoogle.push({})
 }
 
 onMounted(() => {
