@@ -181,7 +181,7 @@ ins {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .05) !important;
   background-color: rgba(0, 0, 0, .02) !important;
   position: relative;
-  min-height: 200px;
+  min-height: 50px;
 }
 
 ins::after {
