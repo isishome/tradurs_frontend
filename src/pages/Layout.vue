@@ -67,6 +67,8 @@ watch(() => route.name, (val, old) => {
     reload()
 })
 
+const size = computed(() => $q.screen.width < 728 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
+
 const onWindowLoad = () => {
   if (prod.value) {
     const adsbygoogle = window.adsbygoogle || []
@@ -143,15 +145,19 @@ onUnmounted(() => {
     <q-page-container>
       <q-page :style-fn="myTweak">
         <div class="row">
-          <div :class="screen.gt.md ? 'q-pa-xl' : 'q-px-md q-py-lg'" :style="screen.gt.md ? 'width:830px' : 'width:100%'">
+          <div :class="screen.gt.md ? 'q-pa-xl' : 'q-px-md q-py-lg'" :style="screen.gt.md ? 'width:824px' : 'width:100%'">
+            <div class="row justify-center" :class="$q.screen.width < 728 ? 'q-mb-sm' : 'q-mb-md'">
+              <ins class="adsbygoogle" :style="`display:inline-block;${size}`" data-ad-client="ca-pub-5110777286519562"
+                data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'" :key="`top-${key}`"></ins>
+            </div>
             <RouterView />
           </div>
           <div class="gt-md col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
-                <!-- <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-                  data-ad-client="ca-pub-5110777286519562" data-ad-slot="7240136439" :data-adtest="prod ? 'off' : 'on'"
-                  :key="key"></ins> -->
+                <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+                  data-ad-client="ca-pub-5110777286519562" data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'"
+                  :key="`right-${key}`"></ins>
               </div>
             </div>
           </div>

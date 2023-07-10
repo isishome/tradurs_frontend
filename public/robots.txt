@@ -3,6 +3,7 @@ Disallow: /sign/
 Disallow: /join/
 Disallow: /forgot/
 Disallow: /verify/
+Disallow: /info/
 
 User-agent: *
 Allow: /
