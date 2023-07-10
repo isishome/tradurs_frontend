@@ -4,6 +4,8 @@ import { useI18n } from 'vue-i18n'
 import { useDiablo4Store } from '@/stores/diablo4'
 import d4400 from '@/assets/d4_400.webp'
 import d4800 from '@/assets/d4_800.webp'
+import arrowRight from '@/assets/icons/arrow_right.svg'
+import price from '@/assets/icons/price.svg'
 
 
 const d4 = import.meta.env.VITE_APP_D4_ORIGIN
@@ -58,7 +60,7 @@ onMounted(() => {
       <div class="col-12 col-sm-6" v-for="item in store.items" :key="item.itemId">
         <q-card class="item-card">
           <q-card-section class="text-right q-pa-lg">
-            <q-btn round flat padding="0" size="30px" class="invert" icon="img:src/assets/icons/arrow_right.svg" type="a"
+            <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
               :href="`${d4}/item/${item.itemId}`" />
           </q-card-section>
           <q-card-section class="q-px-lg">
@@ -74,7 +76,7 @@ onMounted(() => {
           <q-card-section class="q-pa-lg">
             <q-chip dense size="lg" color="white" class="price  full-width">
               <div class="row items-center justify-between full-width">
-                <q-avatar color="white" class="avatar" rounded icon="img:src/assets/icons/price.svg" />
+                <q-avatar color="white" class="avatar" rounded :icon="`img:${price}`" />
                 <div>
                   {{ item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString()), 'decimal',
                     {
