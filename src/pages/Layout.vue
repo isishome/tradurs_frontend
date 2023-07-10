@@ -65,7 +65,7 @@ watch(() => route.name, (val, old) => {
     reload()
 })
 
-const size = computed(() => $q.screen.width < 728 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
+const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
   const adsbygoogle = window.adsbygoogle || []
@@ -90,11 +90,11 @@ onUnmounted(() => {
 <template>
   <q-layout view="hHh lpR lFf">
     <!-- <q-drawer show-if-above v-model="leftDrawerOpen" side="left" :behavior="screen.gt.sm ? 'desktop' : 'mobile'"
-                                      class="row justify-end" :width="280">
-                                      <div class="q-py-lg" :class="screen.gt.md ? 'q-px-lg' : 'q-px-md'"
-                                        :style="`overflow-y:scroll;width:280px;height:${asideHeight}`">
-                                      </div>
-                                    </q-drawer> -->
+      class="row justify-end" :width="280">
+      <div class="q-py-lg" :class="screen.gt.md ? 'q-px-lg' : 'q-px-md'"
+        :style="`overflow-y:scroll;width:280px;height:${asideHeight}`">
+      </div>
+    </q-drawer> -->
     <q-header bordered class="bg-white text-secondary q-py-md header row justify-center">
       <q-toolbar class="toolbar">
         <div class="col-3 row items-center">
@@ -105,16 +105,16 @@ onUnmounted(() => {
             </div>
           </q-btn>
           <!-- <q-btn dense flat round class="lt-md" :ripple="false" @click="leftDrawerOpen = !leftDrawerOpen">
-                                        <img src="@/assets/menu.svg" class="icon" height="24" />
-                                      </q-btn> -->
+            <img src="@/assets/menu.svg" class="icon" height="24" />
+          </q-btn> -->
         </div>
         <div class="col row justify-center">
           <q-btn class="lt-md no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
             <img src="/images/tradurs_logo.svg" width="32" />
           </q-btn>
           <!-- <q-tabs dense class="gt-sm q-px-md bg-transparent text-secondary no-hover">
-                                      <q-route-tab :ripple="false" :href="d2r" label="GAME" exact />
-                                    </q-tabs> -->
+            <q-route-tab :ripple="false" :href="d2r" label="GAME" exact />
+          </q-tabs> -->
         </div>
         <q-btn-group class="col-3 justify-end" :class="screen.gt.sm ? 'q-gutter-x-md' : 'q-gutter-x-sm'" rounded flat>
           <q-btn flat dense :ripple="false">
@@ -140,15 +140,15 @@ onUnmounted(() => {
     </q-header>
     <q-page-container>
       <q-page :style-fn="myTweak">
-        <div class="row">
-          <div :class="screen.gt.md ? 'q-pa-xl' : 'q-px-md q-py-lg'" :style="screen.gt.md ? 'width:824px' : 'width:100%'">
-            <div class="row justify-center" :class="$q.screen.width < 728 ? 'q-mb-sm' : 'q-mb-md'">
+        <div class="row justify-center">
+          <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
+            <div class=" row justify-center" :class="$q.screen.width < 728 ? 'q-mb-sm' : 'q-mb-md'">
               <ins class="adsbygoogle" :style="`display:inline-block;${size}`" data-ad-client="ca-pub-5110777286519562"
                 data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'" :key="`top-${key}`"></ins>
             </div>
             <RouterView />
           </div>
-          <div class="gt-md col">
+          <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
                 <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"

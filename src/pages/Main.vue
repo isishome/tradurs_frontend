@@ -25,23 +25,25 @@ onMounted(() => {
   <div>
     <div class="games row q-col-gutter-md">
       <div class="col col-sm-6">
-        <q-btn flat :ripple="false" padding="0" type="a" :href="d4" class="no-hover fit">
-          <q-img :src="d4800" :srcset="`${d4400} 400w, ${d4800} 800w`"
-            sizes="(max-width: 400px) 400w, (min-width: 400px) and (max-width: 800px) 800w" :ratio="1" />
-          <div>
-            <div class="q-pt-lg text-weight-bold text-h6 relative-position">
-              {{ t('games.d4') }}
+        <div class="q-ma-lg">
+          <q-btn flat :ripple="false" padding="0" type="a" :href="d4" class="no-hover fit">
+            <q-img :src="d4800" :srcset="`${d4400} 400w, ${d4800} 800w`"
+              sizes="(max-width: 400px) 400w, (min-width: 400px) and (max-width: 800px) 800w" :ratio="1" />
+            <div>
+              <div class="q-pt-lg text-weight-bold text-h6 relative-position">
+                {{ t('games.d4') }}
+              </div>
+              <q-chip size="12px" text-color="white" :label="t('beta')" color="blue" />
             </div>
-            <q-chip size="12px" text-color="white" :label="t('beta')" color="blue" />
-          </div>
-        </q-btn>
+          </q-btn>
+        </div>
       </div>
     </div>
     <q-separator class="q-my-xl" />
-    <div class="row justify-center q-col-gutter-xl">
+    <div class="row q-col-gutter-md">
       <template v-if="loading">
         <div class="col-12 col-sm-6" v-for="c in 2" :key="c">
-          <q-card class="item-card">
+          <q-card class="item-card" :class="$q.screen.lt.sm ? 'q-ma-xl' : $q.screen.lt.md ? 'q-ma-sm' : 'q-ma-lg'">
             <q-card-section class="row justify-end q-pa-lg">
               <q-skeleton type="circle" round width="46px" height="46px" />
             </q-card-section>
@@ -57,8 +59,9 @@ onMounted(() => {
           </q-card>
         </div>
       </template>
-      <div class="col-12 col-sm-6" v-for="item in store.items" :key="item.itemId">
-        <q-card class="item-card">
+      <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in store.items" :key="item.itemId"
+        transition="jump-up" :transition-duration="1000" once>
+        <q-card class="item-card" :class="$q.screen.lt.sm ? 'q-ma-xl' : $q.screen.lt.md ? 'q-ma-sm' : 'q-ma-lg'">
           <q-card-section class="text-right q-pa-lg">
             <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
               :href="`${d4}/item/${item.itemId}`" />
@@ -87,7 +90,7 @@ onMounted(() => {
             </q-chip>
           </q-card-section>
         </q-card>
-      </div>
+      </q-intersection>
     </div>
   </div>
 </template>
@@ -98,6 +101,10 @@ onMounted(() => {
 
 .games:deep(img:hover) {
   filter: contrast(80%) !important;
+}
+
+.item-wrap {
+  min-height: 400px;
 }
 
 .item-card {
