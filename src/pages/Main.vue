@@ -52,7 +52,7 @@ onMounted(() => {
               <q-skeleton type="text" round width="80%" height="40px" />
             </q-card-section>
             <q-card-section class="row justify-center">
-              <q-skeleton type="circle" round width="150px" height="150px" />
+              <q-skeleton type="circle" round width="100px" height="100px" />
             </q-card-section>
             <q-card-section class="q-pa-xl">
               <q-skeleton type="QChip" style="border-radius: 40px;" round width="100%" height="60px" />
