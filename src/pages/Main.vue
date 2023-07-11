@@ -43,7 +43,8 @@ onMounted(() => {
     <div class="row q-col-gutter-md">
       <template v-if="loading">
         <div class="col-12 col-sm-6" v-for="c in 2" :key="c">
-          <q-card class="item-card" :class="$q.screen.lt.sm ? 'q-ma-xl' : $q.screen.lt.md ? 'q-ma-sm' : 'q-ma-lg'">
+          <q-card class="item-card q-my-xl"
+            :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
             <q-card-section class="row justify-end q-pa-lg">
               <q-skeleton type="circle" round width="46px" height="46px" />
             </q-card-section>
