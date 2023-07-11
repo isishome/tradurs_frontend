@@ -188,5 +188,6 @@ ins::after {
   z-index: -1;
   transform: translate(-50%, -50%);
   color: rgba(0, 0, 0, .2);
+  opacity: .2;
 }
 </style>
