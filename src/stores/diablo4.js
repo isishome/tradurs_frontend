@@ -10,7 +10,12 @@ export const useDiablo4Store = defineStore('diablo4', {
       return new Promise(async (resolve) => {
         const response = await instance.post('/d4/item', {
           page: 1,
-          rows: 40
+          rows: 40,
+          fixedFilter: {
+            hardcore: null,
+            ladder: null,
+            onlyCurrency: null
+          }
         })
         this.items = response.data
         resolve()

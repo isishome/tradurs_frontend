@@ -61,7 +61,7 @@ onMounted(() => {
       </template>
       <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in store.items" :key="item.itemId"
         transition="jump-up" once>
-        <q-card class="item-card" :class="$q.screen.lt.sm ? 'q-ma-xl' : $q.screen.lt.md ? 'q-ma-sm' : 'q-ma-lg'">
+        <q-card class="item-card q-my-xl" :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
           <q-card-section class="text-right q-pa-lg">
             <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
               :href="`${d4}/item/${item.itemId}`" />
@@ -113,7 +113,7 @@ onMounted(() => {
   background: url('/images/back.webp');
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   filter: brightness(1.4);
-  font-size: 24px;
+  font-size: 20px;
   letter-spacing: 2px;
   font-weight: 700 !important;
   text-align: center;
@@ -121,7 +121,7 @@ onMounted(() => {
 
 .price {
   border-radius: 30px;
-  font-size: 24px !important;
+  font-size: 20px !important;
   padding: 30px 20px !important;
 }
 
