@@ -60,9 +60,9 @@ onMounted(() => {
           </q-card>
         </div>
       </template>
-      <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in store.items" :key="item.itemId"
+      <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in  store.items " :key="item.itemId"
         transition="jump-up" once>
-        <q-card class="item-card q-my-xl" :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
+        <q-card class=" item-card q-my-xl" :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
           <q-card-section class="text-right q-pa-lg">
             <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
               :href="`${d4}/item/${item.itemId}`" />
