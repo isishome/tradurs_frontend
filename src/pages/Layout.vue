@@ -152,6 +152,20 @@ onUnmounted(() => {
                 data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'" :key="`top-${key}`"></ins>
             </div>
             <RouterView />
+            <div class="q-py-xl"></div>
+            <ins v-if="$q.platform.is.mobile" class="adsbygoogle" style="display:block"
+              data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690" data-ad-format="auto"
+              data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${key}`"></ins>
+            <q-separator />
+            <div class="q-pt-lg">
+              <div class="row justify-center items-center q-gutter-xs text-caption bottom">
+                <div>Copyright</div>
+                <div>@</div>
+                <div>2023</div>
+                <q-btn class="no-hover" no-caps flat dense aria-label="Serasome Home Button" padding="0" :ripple="false"
+                  href="https://serasome.com" target="_blank" rel="noopener noreferrer">SeraSome</q-btn>
+              </div>
+            </div>
           </div>
           <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
