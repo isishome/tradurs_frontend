@@ -71,8 +71,9 @@ const onWindowLoad = () => {
   if (prod) {
     const adsbygoogle = window.adsbygoogle || []
     const ads = document.querySelectorAll('ins.adsbygoogle')
-    ads.forEach(() => {
-      adsbygoogle.push({})
+    ads.forEach((a) => {
+      if (a.clientWidth + a.clientHeight > 0)
+        adsbygoogle.push({})
     })
   }
 }
