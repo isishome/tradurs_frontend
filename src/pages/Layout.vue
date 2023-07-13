@@ -68,9 +68,13 @@ watch(() => route.name, (val, old) => {
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
-  const adsbygoogle = window.adsbygoogle || []
-  adsbygoogle.push({})
-  adsbygoogle.push({})
+  if (prod) {
+    const adsbygoogle = window.adsbygoogle || []
+    const ads = document.querySelectorAll('ins.adsbygoogle')
+    ads.forEach(() => {
+      adsbygoogle.push({})
+    })
+  }
 }
 
 onMounted(() => {
@@ -188,16 +192,16 @@ ins::after {
   z-index: -1;
   transform: translate(-50%, -50%);
   color: rgba(0, 0, 0, .2);
-  opacity: .2;
+  opacity: .6;
 }
 
 .top-ads {
-  margin-bottom: 96px;
+  margin-bottom: 48px;
 }
 
 @media (max-width:600px) {
   .top-ads {
-    margin-bottom: 48px;
+    margin: 12px 0;
   }
 }
 </style>
