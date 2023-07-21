@@ -45,7 +45,8 @@ onMounted(() => {
         <div class="col-12 col-sm-6" v-for="c in 2" :key="c">
           <q-card class="item-card q-my-xl"
             :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
-            <q-card-section class="row justify-end q-pa-lg">
+            <q-card-section class="row justify-between q-pa-lg">
+              <q-skeleton type="QChip" round width="92px" height="46px" />
               <q-skeleton type="circle" round width="46px" height="46px" />
             </q-card-section>
             <q-card-section class="row justify-center q-px-lg">
@@ -63,7 +64,10 @@ onMounted(() => {
       <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in  store.items " :key="item.itemId"
         transition="jump-up" once>
         <q-card class=" item-card q-my-xl" :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
-          <q-card-section class="text-right q-pa-lg">
+          <q-card-section class="row justify-between q-pa-lg">
+            <q-btn v-if="item.ladder" no-caps rounded unelevated size="18px" :label="t('item.season')" color="dark-red"
+              class="no-pointer-events" />
+            <div v-else></div>
             <q-btn round flat padding="0" size="30px" class="invert" :icon="`img:${arrowRight}`" type="a"
               :href="`${d4}/item/${item.itemId}`" />
           </q-card-section>
@@ -85,7 +89,7 @@ onMounted(() => {
                   {{ item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString()), 'decimal',
                     {
                       notation: 'compact'
-                    }) : t('offer.title') }}
+                    }) : t('item.offer') }}
                 </div>
               </div>
             </q-chip>

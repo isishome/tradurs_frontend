@@ -1,6 +1,7 @@
 :root {
   --q-primary: #EEAE15;
   --q-secondary: #575A61;
+  --q-third: #A50905;
   --q-dark-page: #0B0B0D;
   --q-dark: #181B22;
   --q-grey: #fafafa;
@@ -8,6 +9,11 @@
 
 body {
   color: var(--q-secondary);
+}
+
+.bg-dark-red {
+  color: var(--q-third);
+  background-color: var(--q-third);
 }
 
 .invert {
