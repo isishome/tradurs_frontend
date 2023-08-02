@@ -8,6 +8,9 @@ export const routes = [
     path: '/join',
     name: 'Join',
     component: () => import('@/pages/Join.vue'),
+    meta: {
+      isNoAds: true
+    },
     children: [
       {
         path: 'policy/terms',
@@ -30,22 +33,34 @@ export const routes = [
     path: '/join/:email',
     name: 'Join-Email',
     component: () => import('@/pages/Join.vue'),
-    props: true
+    props: true,
+    meta: {
+      isNoAds: true
+    }
   },
   {
     path: '/sign',
     name: 'Sign',
-    component: () => import('@/pages/Sign.vue')
+    component: () => import('@/pages/Sign.vue'),
+    meta: {
+      isNoAds: true
+    }
   },
   {
     path: '/forgot',
     name: 'Forgot',
-    component: () => import('@/pages/Forgot.vue')
+    component: () => import('@/pages/Forgot.vue'),
+    meta: {
+      isNoAds: true
+    }
   },
   {
     path: '/verify',
     name: 'Verify',
-    component: () => import('@/pages/Verify.vue')
+    component: () => import('@/pages/Verify.vue'),
+    meta: {
+      isNoAds: true
+    }
   },
   {
     path: '/',
@@ -61,7 +76,8 @@ export const routes = [
         name: 'Info',
         component: () => import('@/pages/Info.vue'),
         meta: {
-          isAuth: true
+          isAuth: true,
+          isNoAds: true
         }
       },
     ]

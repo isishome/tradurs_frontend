@@ -16,7 +16,10 @@ export const router = createRouter({
 // Before Each
 router.beforeEach(async (to) => {
   const accountStore = useAccountStore()
+  accountStore.noAds = to.meta.isNoAds || false
+
   await accountStore.checkSign()
+
   if (accountStore.signed) {
     if (to.matched.some(m => ['Sign', 'Forgot', 'Join'].includes(m.name)))
       return { name: 'Main' }
@@ -26,5 +29,4 @@ router.beforeEach(async (to) => {
     if (isAuth)
       return { name: 'Sign' }
   }
-
 })

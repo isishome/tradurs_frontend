@@ -148,12 +148,13 @@ onUnmounted(() => {
         <div class="row justify-center">
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
-              <ins class="adsbygoogle" :style="`display:inline-block;${size}`" data-ad-client="ca-pub-5110777286519562"
-                data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'" :key="`top-${key}`"></ins>
+              <ins v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
+                data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'"
+                :key="`top-${key}`"></ins>
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
-            <ins v-if="$q.platform.is.mobile" class="adsbygoogle" style="display:block"
+            <ins v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle" style="display:block"
               data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690" data-ad-format="auto"
               data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${key}`"></ins>
             <q-separator />
@@ -170,7 +171,7 @@ onUnmounted(() => {
           <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
-                <ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
+                <ins v-if="!accountStore.noAds" class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
                   data-ad-client="ca-pub-5110777286519562" data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'"
                   :key="`right-${key}`"></ins>
               </div>

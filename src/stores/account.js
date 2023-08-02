@@ -4,7 +4,8 @@ import { instance } from '@/axios'
 export const useAccountStore = defineStore('account', {
   state: () => ({
     signed: null,
-    info: {}
+    info: {},
+    noAds: false
   }),
   actions: {
     async checkSign(forced) {
