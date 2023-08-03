@@ -17,6 +17,8 @@ export const router = createRouter({
 router.beforeEach(async (to) => {
   const accountStore = useAccountStore()
   accountStore.noAds = to.meta.isNoAds || false
+  if (accountStore.noAds)
+    accountStore.adsDatetime = undefined
 
   await accountStore.checkSign()
 
