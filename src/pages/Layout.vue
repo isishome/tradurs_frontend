@@ -52,15 +52,18 @@ const setLang = (lang) => {
   axios.defaults.headers.common['Accept-Language'] = lang
 }
 
-const refreshSeconds = 30
+const refreshSeconds = 3
 const key = ref(uid())
 const reload = () => {
   const now = new Date()
   const diff = accountStore.adsDatetime ? date.getDateDiff(now, accountStore.adsDatetime, 'seconds') : refreshSeconds
 
+  console.log(diff)
+
   if (diff < refreshSeconds)
     return
 
+  accountStore.adsDatetime = new Date()
   key.value = uid()
   nextTick(() => {
     onWindowLoad()
@@ -75,8 +78,7 @@ watch(() => route.name, (val, old) => {
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
-  if (prod && !route.meta.isNoAds) {
-    accountStore.adsDatetime = new Date()
+  if (prod) {
     const adsbygoogle = window.adsbygoogle || []
     const ads = document.querySelectorAll('ins.adsbygoogle')
     ads.forEach((a) => {
@@ -156,13 +158,13 @@ onUnmounted(() => {
         <div class="row justify-center">
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
-              <ins v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
+              <ins v-show="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
                 data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'"
                 :key="`top-${key}`"></ins>
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
-            <ins v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle" style="display:block"
+            <ins v-show="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle" style="display:block"
               data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690" data-ad-format="auto"
               data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${key}`"></ins>
             <q-separator />
@@ -179,9 +181,9 @@ onUnmounted(() => {
           <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
-                <ins v-if="!accountStore.noAds" class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-                  data-ad-client="ca-pub-5110777286519562" data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'"
-                  :key="`right-${key}`"></ins>
+                <ins v-show="!accountStore.noAds" class="adsbygoogle"
+                  style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5110777286519562"
+                  data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'" :key="`right-${key}`"></ins>
               </div>
             </div>
           </div>
