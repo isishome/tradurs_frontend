@@ -1,7 +1,7 @@
 <script setup>
 import { inject, ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useQuasar, uid } from 'quasar'
+import { useQuasar, uid, date } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useAccountStore } from '@/stores/account'
 
@@ -52,8 +52,17 @@ const setLang = (lang) => {
   axios.defaults.headers.common['Accept-Language'] = lang
 }
 
+const refreshSeconds = 30
 const key = ref(uid())
 const reload = () => {
+  const now = new Date()
+  const diff = date.getDateDiff(now, accountStore.adsDatetime || date.subtractFromDate(now, { seconds: refreshSeconds * 2 }), 'seconds')
+
+  if (diff < refreshSeconds)
+    return
+
+  accountStore.adsDatetime = new Date()
+
   key.value = uid()
   nextTick(() => {
     onWindowLoad()
