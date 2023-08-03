@@ -5,8 +5,7 @@ export const useAccountStore = defineStore('account', {
   state: () => ({
     signed: null,
     info: {},
-    noAds: false,
-    adsDatetime: undefined
+    noAds: false
   }),
   actions: {
     async checkSign(forced) {
