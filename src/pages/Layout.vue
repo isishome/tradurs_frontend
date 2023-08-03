@@ -58,8 +58,6 @@ const reload = () => {
   const now = new Date()
   const diff = accountStore.adsDatetime ? date.getDateDiff(now, accountStore.adsDatetime, 'seconds') : refreshSeconds
 
-  console.log(diff)
-
   if (diff < refreshSeconds)
     return
 
