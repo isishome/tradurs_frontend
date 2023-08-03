@@ -56,12 +56,10 @@ const refreshSeconds = 30
 const key = ref(uid())
 const reload = () => {
   const now = new Date()
-  const diff = date.getDateDiff(now, accountStore.adsDatetime || date.subtractFromDate(now, { seconds: refreshSeconds * 2 }), 'seconds')
+  const diff = accountStore.adsDatetime ? date.getDateDiff(now, accountStore.adsDatetime, 'seconds') : refreshSeconds
 
   if (diff < refreshSeconds)
     return
-
-  accountStore.adsDatetime = new Date()
 
   key.value = uid()
   nextTick(() => {
@@ -77,7 +75,8 @@ watch(() => route.name, (val, old) => {
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
-  if (prod) {
+  if (prod && !route.meta.isNoAds) {
+    accountStore.adsDatetime = new Date()
     const adsbygoogle = window.adsbygoogle || []
     const ads = document.querySelectorAll('ins.adsbygoogle')
     ads.forEach((a) => {
