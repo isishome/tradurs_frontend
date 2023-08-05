@@ -17,7 +17,8 @@ export default {
     signIn: 'Sign in',
     new: 'New to Tradurs?',
     failedToSocial: 'Social login failed',
-    needVerifyEmail: 'You must verify your email address'
+    needVerifyEmail: 'You must verify your email address',
+    blockedAccount: 'This account is not available'
   },
   info: {
     user: 'User Information',
