@@ -50,6 +50,7 @@ const setLang = (lang) => {
   locale.value = lang
   $q.cookies.set('tradurs.lang', lang)
   axios.defaults.headers.common['Accept-Language'] = lang
+  document.documentElement.setAttribute('lang', lang)
 }
 
 const key = ref(uid())

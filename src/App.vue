@@ -7,6 +7,7 @@ const { locale } = useI18n({ useScope: 'global' })
 
 const lang = $q.cookies.has('tradurs.lang') ? $q.cookies.get('tradurs.lang') : 'ko'
 locale.value = lang
+document.documentElement.setAttribute('lang', lang)
 
 if (import.meta.env.PROD) {
   window.dataLayer = window.dataLayer || [];
