@@ -31,6 +31,7 @@ export default {
     changeBattleTag: 'Change BattleTag™',
     alertBattleTag: 'BattleTag™ modifications are allowed only once.',
     withdrawal: 'Withdrawal',
+    withdrawalBtn: 'Withdrawal',
     alertWithdrawal: 'Member information will be deleted upon withdrawal.',
     confirmWithdrawal: 'When you withdrawal, all member information is deleted, and you cannot re-register with the email address you are using. Are you sure you want to withdrawal?',
     success: 'Your password has been changed',
