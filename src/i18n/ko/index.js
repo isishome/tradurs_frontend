@@ -18,7 +18,8 @@ export default {
     new: '트레이더스가 처음이신가요?',
     failedToSocial: '간편 로그인 인증이 실패했습니다',
     needVerifyEmail: '이메일 인증이 필요합니다',
-    blockedAccount:'이 계정은 사용할 수 없습니다'
+    blockedAccount: '이 계정은 사용할 수 없습니다',
+    notFoundAccount: '가입되지 않은 사용자 또는 잘못된 비밀번호 입니다'
   },
   info: {
     user: '사용자 정보',
