@@ -7,7 +7,8 @@ export default {
   btn: {
     cancel: 'Cancel',
     change: 'Change',
-    withdrawal: 'Withdrawal'
+    withdrawal: 'Withdrawal',
+    verify: 'Verify'
   },
   sign: {
     email: 'Email Address',
@@ -18,8 +19,7 @@ export default {
     new: 'New to Tradurs?',
     failedToSocial: 'Social login failed',
     needVerifyEmail: 'You must verify your email address',
-    blockedAccount: 'This account is not available',
-    notFoundAccount: 'User email not found or incorrect password'
+    blockedAccount: 'This account is not available'
   },
   info: {
     user: 'User Information',
@@ -29,14 +29,17 @@ export default {
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
     changeBattleTag: 'Change BattleTag™',
-    alertBattleTag: 'BattleTag™ modifications are allowed only once.',
+    alertBattleTag: 'Changing your BattleTag™ will deauthorize you.',
     withdrawal: 'Withdrawal',
     withdrawalBtn: 'Withdrawal',
     alertWithdrawal: 'Member information will be deleted upon withdrawal.',
     confirmWithdrawal: 'When you withdrawal, all member information is deleted, and you cannot re-register with the email address you are using. Are you sure you want to withdrawal?',
     success: 'Your password has been changed',
     successBattleTag: 'Your BattleTag™ has been changed',
-    successWithdrawal: 'Member withdrawal is complete'
+    successWithdrawal: 'Member withdrawal is complete',
+    authenticationFailed: 'BattleTag™ authentication failed',
+    exists: 'The BattleTag™ is already in use.',
+    authenticationSucceeds: 'BattleTag™ authentication succeeded'
   },
   join: {
     confirmPassword: 'Confirm Password',

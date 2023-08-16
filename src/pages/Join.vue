@@ -3,7 +3,7 @@ import { ref, inject, reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { checkEmail, checkComplexity } from '@/common'
+import { checkEmail, checkComplexity, checkBattleTag } from '@/common'
 import { nanoid } from 'nanoid'
 
 const axios = inject('axios')
@@ -14,10 +14,12 @@ const { t } = useI18n({ useScope: 'global' })
 
 const disable = ref(false)
 const email = ref(route.query.email || null)
-const tempPw = email.value ? nanoid() : null
+const battleTag = ref(route.query.battletag || null)
+const tempPw = email.value || battleTag.value ? nanoid() : null
 const info = ref({
   email: email.value,
-  pw: tempPw
+  pw: tempPw,
+  battleTag: battleTag.value
 })
 const complexity = reactive({
   value: 0,
@@ -92,6 +94,9 @@ const join = () => {
           </q-input>
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="cpw" type="password"
             maxlength="16" :rules="[val => val && info.pw === val || '']" :label="t('join.confirmPassword')" />
+          <q-input v-if="battleTag" :disable="disable" outlined no-error-icon hide-bottom-space readonly
+            v-model="info.battleTag" type="text" maxlength="24" :rules="[val => val && checkBattleTag(val) || '']"
+            :label="t('info.battleTag')" />
           <div class="q-my-sm text-caption terms-policy">
             <template v-for="(word, index) in termsPolicy">
               <span :key="index" v-if="word.indexOf('#terms#') !== -1">

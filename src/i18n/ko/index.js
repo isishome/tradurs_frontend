@@ -7,7 +7,8 @@ export default {
   btn: {
     cancel: '취소',
     change: '변경',
-    withdrawal: '탈퇴'
+    withdrawal: '탈퇴',
+    verify: '인증'
   },
   sign: {
     email: '이메일 주소',
@@ -18,8 +19,7 @@ export default {
     new: '트레이더스가 처음이신가요?',
     failedToSocial: '간편 로그인 인증이 실패했습니다',
     needVerifyEmail: '이메일 인증이 필요합니다',
-    blockedAccount: '이 계정은 사용할 수 없습니다',
-    notFoundAccount: '가입되지 않은 사용자 또는 잘못된 비밀번호 입니다'
+    blockedAccount: '이 계정은 사용할 수 없습니다'
   },
   info: {
     user: '사용자 정보',
@@ -29,14 +29,17 @@ export default {
     newPassword: '새 비밀번호',
     confirmNewPassword: '새 비밀번호 확인',
     changeBattleTag: 'BattleTag™ 변경',
-    alertBattleTag: 'BattleTag™ 수정은 1회만 허용됩니다.',
+    alertBattleTag: 'BattleTag™ 변경 시 인증이 해제됩니다.',
     withdrawal: '회원 탈퇴',
     withdrawalBtn: '탈퇴',
     alertWithdrawal: '탈퇴 시 회원 정보가 삭제됩니다.',
     confirmWithdrawal: '탈퇴 시 회원 정보가 모두 삭제되며, 사용 중인 이메일 주소로 재가입 할 수 없습니다. 탈퇴하시겠습니까?',
     success: '비밀번호가 변경되었습니다',
     successBattleTag: 'BattleTag™가 변경되었습니다',
-    successWithdrawal: '회원 탈퇴가 완료되었습니다'
+    successWithdrawal: '회원 탈퇴가 완료되었습니다',
+    authenticationFailed: 'BattleTag™ 인증이 실패했습니다.',
+    exists: '이미 사용 중인 배틀태그입니다.',
+    authenticationSucceeds: 'BattleTag™ 인증이 완료되었습니다.'
   },
   join: {
     confirmPassword: '비밀번호 확인',

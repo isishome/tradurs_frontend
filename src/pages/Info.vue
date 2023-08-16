@@ -1,10 +1,12 @@
 <script setup>
-import { inject, ref, reactive, computed, nextTick } from 'vue'
+import { inject, ref, reactive, computed, nextTick, onMounted } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useAccountStore } from '@/stores/account'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { checkComplexity, checkBattleTag, checkEmail } from '@/common'
+
+const backend = import.meta.env.VITE_APP_BACKEND_ORIGIN
 
 const axios = inject('axios')
 const $q = useQuasar()
@@ -12,8 +14,10 @@ const { t } = useI18n({ useScope: 'global' })
 
 const screen = computed(() => $q.screen)
 const store = useAccountStore()
+const route = useRoute()
 const router = useRouter()
 
+const status = ref(route.query.status)
 const form1 = ref(null)
 const info = ref({
   op: null,
@@ -52,7 +56,6 @@ const changePassword = () => {
 const form2 = ref(null)
 const battlenet = reactive({
   battleTag: store.info.battleTag,
-  modifiable: store.info.modifiable,
   loading: false
 })
 const changeBattleTag = () => {
@@ -72,7 +75,6 @@ const changeBattleTag = () => {
       store.checkSign(true)
         .then(() => {
           battlenet.battleTag = store.info.battleTag
-          battlenet.modifiable = store.info.modifiable
         })
         .catch(() => { })
         .then(() => {
@@ -125,6 +127,27 @@ const proceedWithdrawal = () => {
     confirmWithdrawal()
   })
 }
+
+onMounted(() => {
+  if (status.value === 'failed') {
+    $q.notify({
+      color: 'negative',
+      message: t('info.authenticationFailed')
+    })
+  }
+  if (status.value === 'exists') {
+    $q.notify({
+      color: 'negative',
+      message: t('info.exists')
+    })
+  }
+  else if (status.value === 'success') {
+    $q.notify({
+      color: 'positive',
+      message: t('info.authenticationSucceeds')
+    })
+  }
+})
 </script>
 <template>
   <div class="text-h5 text-weight-bold">{{ t('info.user') }}</div>
@@ -163,12 +186,22 @@ const proceedWithdrawal = () => {
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form ref="form2" class="column q-gutter-y-md" no-error-focus @submit="changeBattleTag">
-        <q-input dense no-error-icon hide-bottom-space outlined :disable="!battlenet.modifiable || battlenet.loading"
-          v-model="battlenet.battleTag" :label="t('info.battleTag')" maxlength="24"
-          :rules="[val => val && checkBattleTag(val) || '']" class="text-subtitle1" />
-        <q-btn outline :disable="!battlenet.modifiable" :loading="battlenet.loading" :ripple="false"
-          text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.change')" padding="sm"
-          type="submit" />
+        <q-input dense no-error-icon hide-bottom-space outlined :disable="battlenet.loading" v-model="battlenet.battleTag"
+          :label="t('info.battleTag')" maxlength="24" :rules="[val => val && checkBattleTag(val) || '']"
+          class="text-subtitle1">
+          <template #append>
+            <img v-if="battlenet.battleTag === store.info.battleTag && store.info.verifiedBattleTag" class="check"
+              width="24" src="@/assets/icons/verified.svg" />
+            <q-btn
+              v-if="store.info.battleTag && battlenet.battleTag === store.info.battleTag && !store.info.verifiedBattleTag"
+              class="verify" unelevated :loading="battlenet.loading" :ripple="false" :label="t('btn.verify')"
+              color="positive" type="a" :href="`${backend}/account/oauth/battlenet?verify=true`"
+              @click.stop="battlenet.loading = true" />
+          </template>
+        </q-input>
+        <q-btn outline :disable="battlenet.battleTag === store.info.battleTag" :loading="battlenet.loading"
+          :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.change')"
+          padding="sm" type="submit" />
       </q-form>
     </q-card-section>
     <q-separator inset class="q-my-md" />
@@ -189,4 +222,21 @@ const proceedWithdrawal = () => {
     </q-card-section>
   </q-card>
 </template>
-<style scoped></style>
+<style scoped>
+.check {
+  filter: invert(53%) sepia(91%) saturate(363%) hue-rotate(82deg) brightness(90%) contrast(107%);
+}
+
+.uncheck {
+  filter: invert(71%) sepia(0%) saturate(0%) hue-rotate(232deg) brightness(95%) contrast(94%);
+}
+
+.verify {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 4px 4px 0;
+  z-index: 1;
+}
+</style>
