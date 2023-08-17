@@ -190,10 +190,9 @@ onMounted(() => {
           :label="t('info.battleTag')" maxlength="24" :rules="[val => val && checkBattleTag(val) || '']"
           class="text-subtitle1">
           <template #append>
-            <img v-if="battlenet.battleTag === store.info.battleTag && store.info.verifiedBattleTag" class="check"
-              width="24" src="@/assets/icons/verified.svg" />
-            <q-btn
-              v-if="store.info.battleTag && battlenet.battleTag === store.info.battleTag && !store.info.verifiedBattleTag"
+            <img v-if="battlenet.battleTag === store.info.battleTag && store.info.verified" class="check" width="24"
+              src="@/assets/icons/verified.svg" />
+            <q-btn v-if="store.info.battleTag && battlenet.battleTag === store.info.battleTag && !store.info.verified"
               class="verify" unelevated :loading="battlenet.loading" :ripple="false" :label="t('btn.verify')"
               color="positive" type="a" :href="`${backend}/account/oauth/battlenet?verify=true`"
               @click.stop="battlenet.loading = true" />
