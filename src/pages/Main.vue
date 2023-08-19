@@ -33,7 +33,7 @@ onMounted(() => {
               <div class="q-pt-lg text-weight-bold text-h6 relative-position">
                 {{ t('games.d4') }}
               </div>
-              <q-chip size="12px" text-color="white" :label="t('beta')" color="blue" />
+              <!-- <q-chip size="12px" text-color="white" :label="t('beta')" color="blue" /> -->
             </div>
           </q-btn>
         </div>
