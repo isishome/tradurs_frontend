@@ -15,7 +15,7 @@ const mode = route.query.mode || 'verify'
 
 onMounted(() => {
   if (code === null)
-    router.replace({ name: 'Sign' })
+    router.replace({ name: 'Sign', params: { lang: route.params.lang } })
   else {
     axios.get(`/account/${mode}`, {
       params: {
@@ -30,7 +30,7 @@ onMounted(() => {
       })
       .catch(() => { })
       .then(() => {
-        router.replace({ name: 'Sign' })
+        router.replace({ name: 'Sign', params: { lang: route.params.lang } })
       })
   }
 })

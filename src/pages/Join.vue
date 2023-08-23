@@ -45,11 +45,11 @@ const thumbStyle = {
 }
 const dialogShow = computed(() => ['Policy-Terms', 'Policy-Privacy', 'Policy-Cookies'].includes(route.name))
 const showDialog = (name) => {
-  router.push({ name: `Policy-${name}` })
+  router.push({ name: `Policy-${name}`, params: { lang: route.params.lang } })
 }
 
 const dialogHide = () => {
-  router.push({ name: 'Join' })
+  router.push({ name: 'Join', params: { lang: route.params.lang } })
 }
 
 const join = () => {
@@ -60,7 +60,7 @@ const join = () => {
         color: 'positive',
         message: t('join.success')
       })
-      router.replace({ name: 'Sign' })
+      router.replace({ name: 'Sign', params: { lang: route.params.lang } })
     })
     .catch(() => { })
     .then(() => {
@@ -72,7 +72,8 @@ const join = () => {
   <div class="absolute-center">
     <q-card flat :bordered="$q.screen.gt.xs" class="join" :class="$q.screen.gt.xs ? 'q-pa-lg' : 'q-pa-none'">
       <q-card-section class="text-center">
-        <q-btn :disable="disable" class="no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
+        <q-btn :disable="disable" class="no-hover" dense flat padding="0" :ripple="false"
+          :to="{ name: 'Main', params: { lang: route.params.lang } }">
           <div class="row justify-center q-gutter-x-xs items-center">
             <img src="/images/tradurs_logo.svg" width="40" />
             <img src="/images/tradurs_text.svg" height="30" />
@@ -124,7 +125,7 @@ const join = () => {
     <q-card :class="['column no-scroll no-padding', $q.screen.lt.md ? '' : 'policy-width']">
       <q-card-section class="q-pa-sm gt-sm text-right">
         <div>
-          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join' }">
+          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join', params: { lang: route.params.lang } }">
             <img src="@/assets/icons/close.svg" width="24" />
           </q-btn>
         </div>
@@ -138,7 +139,7 @@ const join = () => {
       <q-separator class="lt-md" />
       <q-card-section class="lt-md text-right q-pa-sm">
         <div>
-          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join' }">
+          <q-btn flat round v-close-popup size="sm" :to="{ name: 'Join', params: { lang: route.params.lang } }">
             <img src="@/assets/icons/close.svg" width="24" />
           </q-btn>
         </div>

@@ -1,17 +1,18 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 import { useDiablo4Store } from '@/stores/diablo4'
 import d4400 from '@/assets/d4_400.webp'
 import d4800 from '@/assets/d4_800.webp'
 import arrowRight from '@/assets/icons/arrow_right.svg'
 import price from '@/assets/icons/price.svg'
 
-
-const d4 = import.meta.env.VITE_APP_D4_ORIGIN
+const route = useRoute()
 const { t, n } = useI18n({ useScope: 'global' })
 const store = useDiablo4Store()
 
+const d4 = import.meta.env.VITE_APP_D4_ORIGIN + (`/${route.params.lang || 'ko'}`)
 const loading = ref(true)
 
 onMounted(() => {

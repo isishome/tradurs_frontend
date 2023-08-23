@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from './routes.js'
 import { useAccountStore } from '@/stores/account.js'
+import { instance } from '@/axios/index.js'
 
 // Init Router
 export const router = createRouter({
@@ -17,6 +18,8 @@ export const router = createRouter({
 router.beforeEach(async (to) => {
   const accountStore = useAccountStore()
   accountStore.noAds = to.meta.isNoAds || false
+
+  instance.defaults.headers.common['Accept-Language'] = to.params.lang || 'ko-KR'
 
   await accountStore.checkSign()
 

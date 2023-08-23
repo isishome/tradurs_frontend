@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { router } from '@/router'
-import { Notify, Cookies, Quasar } from 'quasar'
+import { Notify } from 'quasar'
 import { useAccountStore } from '@/stores/account'
 
 export const instance = axios.create({
@@ -8,8 +8,6 @@ export const instance = axios.create({
   timeout: 10000,
   withCredentials: true
 })
-
-instance.defaults.headers.common['Accept-Language'] = Cookies.has('tradurs.lang') ? Cookies.get('tradurs.lang') : 'ko-KR'
 
 instance.interceptors.response.use(function (response) {
   return response

@@ -3,6 +3,7 @@ import { inject, ref, computed, watch, onMounted, onUnmounted, nextTick } from '
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar, uid } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { useGlobalStore } from '@/stores/global'
 import { useAccountStore } from '@/stores/account'
 
 const prod = import.meta.env.PROD
@@ -12,6 +13,7 @@ const route = useRoute()
 const router = useRouter()
 const $q = useQuasar()
 const { locale } = useI18n({ useScope: 'global' })
+const globalStore = useGlobalStore()
 const accountStore = useAccountStore()
 
 const leftDrawerOpen = ref(false)
@@ -27,7 +29,7 @@ const myTweak = (offset) => {
 
 const sign = () => {
   if (!signed.value) {
-    router.push({ name: 'Sign' })
+    router.push({ name: 'Sign', params: { lang: route.params.lang } })
     return
   }
 
@@ -41,16 +43,12 @@ const sign = () => {
     })
 }
 
-const localeOptions = [
-  { value: 'en', label: 'English' },
-  { value: 'ko', label: '한국어' }
-]
-
 const setLang = (lang) => {
-  locale.value = lang
-  $q.cookies.set('tradurs.lang', lang)
-  axios.defaults.headers.common['Accept-Language'] = lang
-  document.documentElement.setAttribute('lang', lang)
+  router.replace({ name: route.name, params: { lang } })
+    .catch(() => { })
+    .then(() => {
+      router.go(0)
+    })
 }
 
 const key = ref(uid())
@@ -104,7 +102,8 @@ onUnmounted(() => {
     <q-header bordered class="bg-white text-secondary q-py-md header row justify-center">
       <q-toolbar class="toolbar">
         <div class="col-3 row items-center">
-          <q-btn class="gt-sm no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
+          <q-btn class="gt-sm no-hover" dense flat padding="0" :ripple="false"
+            :to="{ name: 'Main', params: { lang: route.params.lang } }">
             <div class="row justify-center q-gutter-x-xs items-center">
               <img src="/images/tradurs_logo.svg" width="28" />
               <img src="/images/tradurs_text.svg" height="20" />
@@ -115,7 +114,8 @@ onUnmounted(() => {
           </q-btn> -->
         </div>
         <div class="col row justify-center">
-          <q-btn class="lt-md no-hover" dense flat padding="0" :ripple="false" :to="{ name: 'Main' }">
+          <q-btn class="lt-md no-hover" dense flat padding="0" :ripple="false"
+            :to="{ name: 'Main', params: { lang: route.params.lang } }">
             <img src="/images/tradurs_logo.svg" width="32" />
           </q-btn>
           <!-- <q-tabs dense class="gt-sm q-px-md bg-transparent text-secondary no-hover">
@@ -128,13 +128,13 @@ onUnmounted(() => {
             <q-menu auto-close class="no-shadow" anchor="bottom end" self="top end" transition-show="none"
               transition-hide="none" :transition-duration="0">
               <q-list bordered class="rounded-borders">
-                <q-item v-for="lang in localeOptions" :key="lang.value" clickable :active="lang.value === locale"
-                  @click="setLang(lang.value)">
+                <q-item v-for="lang in globalStore.localeOptions" :key="lang.value" clickable
+                  :active="lang.value === locale" @click="setLang(lang.value)">
                   {{ lang.label }}</q-item>
               </q-list>
             </q-menu>
           </q-btn>
-          <q-btn v-if="signed" flat dense :ripple="false" :to="{ name: 'Info' }">
+          <q-btn v-if="signed" flat dense :ripple="false" :to="{ name: 'Info', params: { lang: route.params.lang } }">
             <img class="icon" width="24" src="@/assets/icons/setting.svg" />
           </q-btn>
           <q-btn flat dense :ripple="false" @click="sign">

@@ -1,9 +1,12 @@
-<script setup lang="ts">
+<script setup>
 import { useI18n } from 'vue-i18n'
 import { useQuasar } from 'quasar'
+import { useGlobalStore } from '@/stores/global'
 
 const $q = useQuasar()
+const globalStore = useGlobalStore()
 const { t } = useI18n({ useScope: 'global' })
+const brLoc = globalStore.localeOptions.map(lo => lo.value).includes($q.lang.getLocale()?.substring(0, 2) || '') ? $q.lang.getLocale()?.substring(0, 2) || 'ko' : 'ko'
 </script>
 
 <template>
@@ -15,7 +18,7 @@ const { t } = useI18n({ useScope: 'global' })
     <div class="text-h6">{{ t('page.pnf') }}
     </div>
     <div class="q-mt-lg">
-      <q-btn unelevated color="primary" :label="t('notFound.gotoMain')" :to="{ path: '/' }" />
+      <q-btn unelevated color="primary" :label="t('notFound.gotoMain')" :to="{ path: '/', params: { lang: brLoc } }" />
     </div>
   </div>
 </template>

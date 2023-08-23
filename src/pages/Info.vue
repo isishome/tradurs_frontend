@@ -99,7 +99,7 @@ const confirmWithdrawal = () => {
 
       store.signed = false
       store.info = {}
-      router.push({ name: 'Main' })
+      router.push({ name: 'Main', params: { lang: route.params.lang } })
     })
     .catch(() => { })
     .then(() => {

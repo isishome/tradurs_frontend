@@ -1,13 +1,12 @@
 <script setup>
-import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
 
-const $q = useQuasar()
 const { locale } = useI18n({ useScope: 'global' })
+const route = useRoute()
 
-const lang = $q.cookies.has('tradurs.lang') ? $q.cookies.get('tradurs.lang') : 'ko'
-locale.value = lang
-document.documentElement.setAttribute('lang', lang)
+locale.value = route.params.lang || 'ko'
+document.documentElement.setAttribute('lang', locale.value)
 
 if (import.meta.env.PROD) {
   window.dataLayer = window.dataLayer || [];
