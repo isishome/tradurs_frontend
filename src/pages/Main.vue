@@ -12,7 +12,8 @@ const route = useRoute()
 const { t, n } = useI18n({ useScope: 'global' })
 const store = useDiablo4Store()
 
-const d4 = import.meta.env.VITE_APP_D4_ORIGIN + (`/${route.params.lang || 'ko'}`)
+const d4 = import.meta.env.VITE_APP_D4_ORIGIN
+const d4WithLang = d4 + (`/${route.params.lang || 'ko'}`)
 const loading = ref(true)
 
 onMounted(() => {
@@ -27,7 +28,7 @@ onMounted(() => {
     <div class="games row q-col-gutter-md">
       <div class="col col-sm-6">
         <div class="q-ma-lg">
-          <q-btn flat :ripple="false" padding="0" type="a" :href="d4" class="no-hover fit">
+          <q-btn flat :ripple="false" padding="0" type="a" :href="d4WithLang" class="no-hover fit">
             <q-img :src="d4800" :srcset="`${d4400} 400w, ${d4800} 800w`"
               sizes="(max-width: 400px) 400w, (min-width: 400px) and (max-width: 800px) 800w" :ratio="1" />
             <div>
