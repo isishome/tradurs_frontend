@@ -13,8 +13,10 @@ export const useDiablo4Store = defineStore('diablo4', {
           rows: 20,
           fixedFilter: {
             hardcore: null,
-            ladder: null,
-            onlyCurrency: null
+            ladder: null
+          },
+          filter: {
+            status: '000'
           }
         })
         this.items = response.data
