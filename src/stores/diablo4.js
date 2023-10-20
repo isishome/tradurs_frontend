@@ -3,9 +3,23 @@ import { instance } from '@/axios'
 
 export const useDiablo4Store = defineStore('diablo4', {
   state: () => ({
+    gems: [],
+    elixirs: [],
+    summonings: [],
     items: [],
   }),
   actions: {
+    getBase() {
+      return new Promise(async (resolve) => {
+        const response = await instance.get('/d4/item/base')
+
+        this.gems = response.data.gems
+        this.elixirs = response.data.elixirs
+        this.summonings = response.data.summonings
+
+        resolve()
+      })
+    },
     getItems() {
       return new Promise(async (resolve) => {
         const response = await instance.post('/d4/item', {

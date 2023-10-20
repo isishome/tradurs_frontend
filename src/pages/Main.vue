@@ -14,13 +14,21 @@ const store = useDiablo4Store()
 
 const d4 = import.meta.env.VITE_APP_D4_ORIGIN
 const d4WithLang = d4 + (`/${route.params.lang || 'ko'}`)
+const imgSrc = (item) => {
+  return item.itemType === 'aspect' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}.webp` :
+    ['gem', 'summoning'].includes(item.itemTypeValue1) ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` :
+      item.itemTypeValue1 === 'elixir' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2.split('_')[1]}.webp` :
+        `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`
+}
 const loading = ref(true)
 
 onMounted(() => {
-  store.getItems()
-    .then(() => {
-      loading.value = false
-    })
+  store.getBase().then(() => {
+    store.getItems()
+      .then(() => {
+        loading.value = false
+      })
+  })
 })
 </script>
 <template>
@@ -75,13 +83,23 @@ onMounted(() => {
           </q-card-section>
           <q-card-section class="q-px-lg">
             <div style="word-break: break-all;">
+              <span v-show="!['inventory', 'consumables'].includes(item.itemType)">
+                {{ item.name }}
+              </span>
+              <span v-show="item.itemTypeValue1 === 'gem'">
+                {{ store.gems.find(g => g.value === item.itemTypeValue2)?.label }}
+              </span>
+              <span v-show="item.itemTypeValue1 === 'elixir'">
+                {{ store.elixirs.find(e => e.value === item.itemTypeValue2)?.label }}
+              </span>
+              <span v-show="item.itemTypeValue1 === 'summoning'">
+                {{ store.summonings.find(s => s.value === item.itemTypeValue2)?.label }}
+              </span>
               {{ item.name }}
             </div>
           </q-card-section>
           <q-card-section class="no-padding">
-            <q-img
-              :src="item.itemType === 'aspect' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}.webp` : item.itemTypeValue1 === 'gem' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` : `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`"
-              alt="Tradurs Item Image" width="30%" />
+            <q-img :src="imgSrc(item)" alt="Tradurs Item Image" width="30%" />
           </q-card-section>
           <q-card-section class="q-pa-xl">
             <q-chip dense size="lg" color="white" class="price full-width">
