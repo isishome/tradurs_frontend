@@ -11,7 +11,7 @@ export const useDiablo4Store = defineStore('diablo4', {
   actions: {
     getBase() {
       return new Promise(async (resolve) => {
-        const response = await instance.get('/d4/item/base')
+        const response = await instance.get('/d4/item/base/compact')
 
         this.gems = response.data.gems
         this.elixirs = response.data.elixirs
