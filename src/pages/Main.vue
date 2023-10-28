@@ -20,6 +20,14 @@ const imgSrc = (item) => {
       item.itemTypeValue1 === 'elixir' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2.split('_')[1]}.webp` :
         `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`
 }
+
+const currencyValueImg = (item) => {
+  return item.price.currency === 'gold' ? `${d4}/images//items/currencies/gold.webp` : item.price.currency === 'summoning' ? `${d4}/images/items/consumables/summoning/${item.price.currencyValue}.webp` : ''
+}
+const priceName = (item) => {
+  return item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString()), 'decimal', { notation: 'compact' }) : item.price.currency === 'summoning' ? `${store.summonings.find(s => s.value === item.price.currencyValue)?.label}` : t('item.offer')
+}
+
 const loading = ref(true)
 
 onMounted(() => {
@@ -103,13 +111,19 @@ onMounted(() => {
           </q-card-section>
           <q-card-section class="q-pa-xl">
             <q-chip dense size="lg" color="white" class="price full-width">
-              <div class="row items-center justify-between full-width">
-                <q-avatar color="white" class="avatar" rounded :icon="`img:${price}`" />
-                <div>
-                  {{ item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString()), 'decimal',
-                    {
-                      notation: 'compact'
-                    }) : t('item.offer') }}
+              <div class="row items-center full-width no-wrap"
+                :class="item.price.currency !== 'offer' ? 'justify-between' : 'justify-center'">
+                <template v-if="item.price.currency !== 'offer'">
+                  <q-img :src="currencyValueImg(item)" alt="Tradurs Currency Image" width="36px" />
+                  <div class="col-1"></div>
+                </template>
+                <div class="col row q-gutter-xs items-center no-wrap"
+                  :class="item.price.currency !== 'offer' ? 'justify-end' : 'justify-center'">
+                  <div class="ellipsis">
+                    {{ priceName(item) }}
+                  </div>
+                  <div v-if="item.price.quantity !== 1">
+                    x {{ item.price.quantity }}</div>
                 </div>
               </div>
             </q-chip>
@@ -148,10 +162,5 @@ onMounted(() => {
   border-radius: 30px;
   font-size: 20px !important;
   padding: 30px 20px !important;
-}
-
-.avatar {
-  filter: invert(100%);
-  border-radius: 30px !important;
 }
 </style>
