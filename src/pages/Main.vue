@@ -103,7 +103,6 @@ onMounted(() => {
               <span v-show="item.itemTypeValue1 === 'summoning'">
                 {{ store.summonings.find(s => s.value === item.itemTypeValue2)?.label }}
               </span>
-              {{ item.name }}
             </div>
           </q-card-section>
           <q-card-section class="no-padding">
