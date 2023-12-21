@@ -6,7 +6,6 @@ import { useDiablo4Store } from '@/stores/diablo4'
 import d4400 from '@/assets/d4_400.webp'
 import d4800 from '@/assets/d4_800.webp'
 import arrowRight from '@/assets/icons/arrow_right.svg'
-import price from '@/assets/icons/price.svg'
 
 const route = useRoute()
 const { t, n } = useI18n({ useScope: 'global' })

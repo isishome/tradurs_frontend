@@ -7,6 +7,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { checkComplexity, checkBattleTag, checkEmail } from '@/common'
 
 const backend = import.meta.env.VITE_APP_BACKEND_ORIGIN
+const d4 = import.meta.env.VITE_APP_D4_ORIGIN
 
 const axios = inject('axios')
 const $q = useQuasar()
@@ -83,7 +84,24 @@ const changeBattleTag = () => {
     })
 }
 
-const form3 = ref(null)
+const avatarLoading = ref(false)
+const _avatar = ref(store.info.avatar)
+const changeAvatar = () => {
+  avatarLoading.value = true
+  axios.post('account/avatar/update', { avatar: _avatar.value })
+    .then(() => {
+      $q.notify({
+        color: 'positive',
+        message: t('info.successAvatar')
+      })
+    })
+    .catch(() => { })
+    .then(() => {
+      store.checkSign(true)
+      avatarLoading.value = false
+    })
+}
+
 const withdrawal = reactive({
   email: null,
   loading: false
@@ -206,12 +224,31 @@ onMounted(() => {
     <q-separator inset class="q-my-md" />
     <q-card-section class="q-pa-sm">
       <div class="row items-center q-gutter-x-md">
+        <div class="text-weight-bold text-h6">{{ t('info.changeAvatar') }}</div>
+      </div>
+    </q-card-section>
+    <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
+      <q-form ref="form3" class="column q-gutter-y-md" no-error-focus @submit="changeAvatar">
+        <div class="avatar q-pa-md row item-center q-gutter-lg">
+          <q-btn :disable="avatarLoading" flat dense round v-for="a in 8" :key="a" :class="{ 'active': _avatar === a }"
+            @click="_avatar = a">
+            <img :src="`${d4}/images/avatar/${a}.webp`" width="48" height="48" alt="Tradurs Avatar Image">
+          </q-btn>
+        </div>
+        <q-btn outline :disable="_avatar === store.info.avatar" :loading="avatarLoading" :ripple="false"
+          text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.change')" padding="sm"
+          type="submit" />
+      </q-form>
+    </q-card-section>
+    <q-separator inset class="q-my-md" />
+    <q-card-section class="q-pa-sm">
+      <div class="row items-center q-gutter-x-md">
         <div class="text-weight-bold text-h6">{{ t('info.withdrawal') }}</div>
         <div class="text-caption text-negative">{{ t('info.alertWithdrawal') }}</div>
       </div>
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
-      <q-form ref="form3" class="column q-gutter-y-md" no-error-focus @submit="proceedWithdrawal">
+      <q-form class="column q-gutter-y-md" no-error-focus @submit="proceedWithdrawal">
         <q-input :disable="withdrawal.loading" outlined no-error-icon hide-bottom-space v-model="withdrawal.email"
           type="email" maxlength="320" :rules="[val => val && checkEmail(val) || '']" :label="t('sign.email')" />
         <q-btn outline :disable="!(withdrawal.email && checkEmail(withdrawal.email))" :loading="withdrawal.loading"
@@ -237,5 +274,13 @@ onMounted(() => {
   bottom: 0;
   border-radius: 0 4px 4px 0;
   z-index: 1;
+}
+
+.avatar:deep(.q-btn) {
+  opacity: .4;
+}
+
+.avatar:deep(.q-btn.active) {
+  opacity: 1;
 }
 </style>
