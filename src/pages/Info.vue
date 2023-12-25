@@ -230,7 +230,7 @@ onMounted(() => {
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form ref="form3" class="column q-gutter-y-md" no-error-focus @submit="changeAvatar">
         <div class="avatar q-pa-md row item-center q-gutter-lg">
-          <q-btn :disable="avatarLoading" flat dense round v-for="a in 8" :key="a" :class="{ 'active': _avatar === a }"
+          <q-btn :disable="avatarLoading" flat dense round v-for="a in 16" :key="a" :class="{ 'active': _avatar === a }"
             @click="_avatar = a">
             <img :src="`${d4}/images/avatar/${a}.webp`" width="48" height="48" alt="Tradurs Avatar Image">
           </q-btn>
