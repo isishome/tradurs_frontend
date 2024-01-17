@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref, computed, watch, onMounted, onUnmounted, nextTick } from 'vue'
+import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar, uid } from 'quasar'
 import { useI18n } from 'vue-i18n'
@@ -54,9 +54,7 @@ const setLang = (lang) => {
 const key = ref(uid())
 const reload = () => {
   key.value = uid()
-  nextTick(() => {
-    onWindowLoad()
-  })
+  onWindowLoad()
 }
 
 watch(() => route.name, (val, old) => {
@@ -80,11 +78,8 @@ const onWindowLoad = () => {
 onMounted(() => {
   if (document.readyState !== 'complete')
     window.addEventListener("load", onWindowLoad)
-  else {
-    nextTick(() => {
-      onWindowLoad()
-    })
-  }
+  else
+    onWindowLoad()
 })
 
 onUnmounted(() => {
