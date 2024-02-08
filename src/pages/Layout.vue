@@ -86,6 +86,9 @@ watch(() => $q.screen.gt.md, (val, old) => {
     topKey.value++
     bottomKey.value++
     rightKey.value++
+    globalStore.topAccessTimeStamp = Date.now()
+    globalStore.bottomAccessTimeStamp = Date.now()
+    globalStore.rightAccessTimeStamp = Date.now()
 
     onWindowLoad()
   }
