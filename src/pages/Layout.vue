@@ -51,15 +51,44 @@ const setLang = (lang) => {
     })
 }
 
-const key = ref(uid())
+const topRef = ref()
+const bottomRef = ref()
+const rightRef = ref()
+const topKey = ref(0)
+const bottomKey = ref(0)
+const rightKey = ref(0)
 const reload = () => {
-  key.value = uid()
+  if (Date.now() - globalStore.topAccessTimeStamp > 60000 || topRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
+    topAdKey.value++
+    globalStore.topAccessTimeStamp = Date.now()
+  }
+
+  if (Date.now() - globalStore.bottomAccessTimeStamp > 60000 || bottomRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
+    bottomAdKey.value++
+    globalStore.bottomAccessTimeStamp = Date.now()
+  }
+
+  if (Date.now() - globalStore.rightAccessTimeStamp > 60000 || rightRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
+    rightAdKey.value++
+    globalStore.rightAccessTimeStamp = Date.now()
+  }
+
   onWindowLoad()
 }
 
 watch(() => route.name, (val, old) => {
   if (val && val !== old)
     reload()
+})
+
+watch(() => $q.screen.gt.md, (val, old) => {
+  if (val !== old) {
+    topKey.value++
+    bottomKey.value++
+    rightKey.value++
+
+    onWindowLoad()
+  }
 })
 
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
@@ -144,15 +173,16 @@ onUnmounted(() => {
         <div class="row justify-center">
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
-              <ins v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
+              <ins ref="topRef" v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
                 data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'"
-                :key="`top-${key}`"></ins>
+                :key="`top-${topKey}`"></ins>
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
-            <ins v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle" style="display:block"
-              data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690" data-ad-format="auto"
-              data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${key}`"></ins>
+            <ins ref="bottomRef" v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle"
+              style="display:block" data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690"
+              data-ad-format="auto" data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'"
+              :key="`bottom-${bottomKey}`"></ins>
             <q-separator />
             <div class="q-pt-lg">
               <div class="row justify-center items-center q-gutter-xs text-caption bottom">
@@ -167,9 +197,9 @@ onUnmounted(() => {
           <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
-                <ins v-if="!accountStore.noAds" class="adsbygoogle" style="display:inline-block;width:160px;height:600px"
-                  data-ad-client="ca-pub-5110777286519562" data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'"
-                  :key="`right-${key}`"></ins>
+                <ins ref="rightRef" v-if="!accountStore.noAds" class="adsbygoogle"
+                  style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5110777286519562"
+                  data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'" :key="`right-${rightKey}`"></ins>
               </div>
             </div>
           </div>
