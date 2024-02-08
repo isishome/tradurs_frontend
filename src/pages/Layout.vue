@@ -1,7 +1,7 @@
 <script setup>
 import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useQuasar, uid } from 'quasar'
+import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useGlobalStore } from '@/stores/global'
 import { useAccountStore } from '@/stores/account'
