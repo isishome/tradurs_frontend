@@ -19,7 +19,6 @@ export default defineConfig(({ command }) => {
       }
     },
     build: {
-      //outDir: './tradurs',
       emptyOutDir: true
     }
   }
