@@ -181,8 +181,8 @@ onMounted(() => {
           class="text-h6" />
         <q-input dense no-error-icon hide-bottom-space outlined type="password" v-model="info.np"
           :label="t('info.newPassword')" maxlength="16"
-          :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']" @update:model-value="updateComplexity"
-          class="text-h6">
+          :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
+          @update:model-value="updateComplexity" class="text-h6">
           <template #append>
             <q-knob readonly v-model="complexity.value" size="24px" :thickness="0.4" :color="complexity.color"
               track-color="grey-3" class="text-primary q-ma-md" />
@@ -204,9 +204,9 @@ onMounted(() => {
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form ref="form2" class="column q-gutter-y-md" no-error-focus @submit="changeBattleTag">
-        <q-input dense no-error-icon hide-bottom-space outlined :disable="battlenet.loading" v-model="battlenet.battleTag"
-          :label="t('info.battleTag')" maxlength="24" :rules="[val => val && checkBattleTag(val) || '']"
-          class="text-subtitle1">
+        <q-input dense no-error-icon hide-bottom-space outlined :disable="battlenet.loading"
+          v-model="battlenet.battleTag" :label="t('info.battleTag')" maxlength="24"
+          :rules="[val => val && checkBattleTag(val) || '']" class="text-subtitle1">
           <template #append>
             <img v-if="battlenet.battleTag === store.info.battleTag && store.info.verified" class="check" width="24"
               src="@/assets/icons/verified.svg" />
@@ -252,8 +252,8 @@ onMounted(() => {
         <q-input :disable="withdrawal.loading" outlined no-error-icon hide-bottom-space v-model="withdrawal.email"
           type="email" maxlength="320" :rules="[val => val && checkEmail(val) || '']" :label="t('sign.email')" />
         <q-btn outline :disable="!(withdrawal.email && checkEmail(withdrawal.email))" :loading="withdrawal.loading"
-          :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold" :label="t('btn.withdrawal')"
-          padding="sm" type="submit" />
+          :ripple="false" text-color="secondary" class="bg-primary shadow-1 text-weight-bold"
+          :label="t('btn.withdrawal')" padding="sm" type="submit" />
       </q-form>
     </q-card-section>
   </q-card>
