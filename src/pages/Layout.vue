@@ -16,7 +16,7 @@ const { locale } = useI18n({ useScope: 'global' })
 const globalStore = useGlobalStore()
 const accountStore = useAccountStore()
 
-const leftDrawerOpen = ref(false)
+// const leftDrawerOpen = ref(false)
 const signed = computed(() => accountStore.signed)
 const screen = computed(() => $q.screen)
 const offsetTop = ref(0)
@@ -58,18 +58,18 @@ const topKey = ref(0)
 const bottomKey = ref(0)
 const rightKey = ref(0)
 const reload = () => {
-  if (Date.now() - globalStore.topAccessTimeStamp > 60000 || topRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
-    topAdKey.value++
+  if (Date.now() - globalStore.topAccessTimeStamp > 60000 || topRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+    topKey.value++
     globalStore.topAccessTimeStamp = Date.now()
   }
 
-  if (Date.now() - globalStore.bottomAccessTimeStamp > 60000 || bottomRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
-    bottomAdKey.value++
+  if (Date.now() - globalStore.bottomAccessTimeStamp > 60000 || bottomRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+    bottomKey.value++
     globalStore.bottomAccessTimeStamp = Date.now()
   }
 
-  if (Date.now() - globalStore.rightAccessTimeStamp > 60000 || rightRef.value?.$el.getAttribute('data-ad-status') === 'unfilled') {
-    rightAdKey.value++
+  if (Date.now() - globalStore.rightAccessTimeStamp > 60000 || rightRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+    rightKey.value++
     globalStore.rightAccessTimeStamp = Date.now()
   }
 

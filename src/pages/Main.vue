@@ -14,14 +14,14 @@ const store = useDiablo4Store()
 const d4 = import.meta.env.VITE_APP_D4_ORIGIN
 const d4WithLang = d4 + (`/${route.params.lang || 'ko'}`)
 const imgSrc = (item) => {
-  return item.itemType === 'aspect' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}.webp` :
-    ['gem', 'summoning'].includes(item.itemTypeValue1) ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` :
-      item.itemTypeValue1 === 'elixir' ? `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2.split('_')[1]}.webp` :
-        `${d4}/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`
+  return item.itemType === 'aspect' ? `/images/items/${item.itemType}/${item.itemTypeValue1}.webp` :
+    ['gem', 'summoning'].includes(item.itemTypeValue1) ? `/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2}.webp` :
+      item.itemTypeValue1 === 'elixir' ? `/images/items/${item.itemType}/${item.itemTypeValue1}/${item.itemTypeValue2.split('_')[1]}.webp` :
+        `/images/items/${item.itemType}/${item.itemTypeValue1}/${item.imageId}.webp`
 }
 
 const currencyValueImg = (item) => {
-  return item.price.currency === 'gold' ? `${d4}/images//items/currencies/gold.webp` : item.price.currency === 'summoning' ? `${d4}/images/items/consumables/summoning/${item.price.currencyValue}.webp` : ''
+  return item.price.currency === 'gold' ? `/images//items/currencies/gold.webp` : item.price.currency === 'summoning' ? `/images/items/consumables/summoning/${item.price.currencyValue}.webp` : ''
 }
 const priceName = (item) => {
   return item.price.currency === 'gold' ? n(Number.parseFloat(item.price.currencyValue.toString()), 'decimal', { notation: 'compact' }) : item.price.currency === 'summoning' ? `${store.summonings.find(s => s.value === item.price.currencyValue)?.label}` : t('item.offer')
@@ -80,7 +80,8 @@ onMounted(() => {
       </template>
       <q-intersection class="col-12 col-sm-6 item-wrap" v-for="item in  store.items " :key="item.itemId"
         transition="jump-up" once>
-        <q-card class=" item-card q-my-xl" :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
+        <q-card class=" item-card q-my-xl"
+          :class="$q.screen.lt.sm ? 'q-mx-md' : $q.screen.lt.md ? 'q-mx-xs' : 'q-mx-lg'">
           <q-card-section class="row justify-between q-pa-lg">
             <q-btn v-if="item.ladder" no-caps rounded unelevated size="18px" :label="t('item.season')" color="dark-red"
               class="no-pointer-events" />

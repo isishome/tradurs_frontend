@@ -7,7 +7,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { checkComplexity, checkBattleTag, checkEmail } from '@/common'
 
 const backend = import.meta.env.VITE_APP_BACKEND_ORIGIN
-const d4 = import.meta.env.VITE_APP_D4_ORIGIN
 
 const axios = inject('axios')
 const $q = useQuasar()
@@ -232,7 +231,7 @@ onMounted(() => {
         <div class="avatar q-pa-md row item-center q-gutter-lg">
           <q-btn :disable="avatarLoading" flat dense round v-for="a in 16" :key="a" :class="{ 'active': _avatar === a }"
             @click="_avatar = a">
-            <img :src="`${d4}/images/avatar/${a}.webp`" width="48" height="48" alt="Tradurs Avatar Image">
+            <img :src="`/images/avatar/${a}.webp`" width="48" height="48" alt="Tradurs Avatar Image">
           </q-btn>
         </div>
         <q-btn outline :disable="_avatar === store.info.avatar" :loading="avatarLoading" :ripple="false"
