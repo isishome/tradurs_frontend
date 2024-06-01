@@ -58,17 +58,17 @@ const topKey = ref(0)
 const bottomKey = ref(0)
 const rightKey = ref(0)
 const reload = () => {
-  if (Date.now() - globalStore.topAccessTimeStamp > 60000 || topRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+  if (Date.now() - globalStore.topAccessTimeStamp > globalStore.timeLimit || topRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
     topKey.value++
     globalStore.topAccessTimeStamp = Date.now()
   }
 
-  if (Date.now() - globalStore.bottomAccessTimeStamp > 60000 || bottomRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+  if (Date.now() - globalStore.bottomAccessTimeStamp > globalStore.timeLimit || bottomRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
     bottomKey.value++
     globalStore.bottomAccessTimeStamp = Date.now()
   }
 
-  if (Date.now() - globalStore.rightAccessTimeStamp > 60000 || rightRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
+  if (Date.now() - globalStore.rightAccessTimeStamp > globalStore.timeLimit || rightRef.value?.$el?.getAttribute('data-ad-status') === 'unfilled') {
     rightKey.value++
     globalStore.rightAccessTimeStamp = Date.now()
   }
@@ -94,7 +94,7 @@ watch(() => $q.screen.gt.md, (val, old) => {
   }
 })
 
-const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 758 ? 'width:320px;max-height:100px;' : 'width:728px;height:90px;')
+const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 468 ? 'width:320px;max-height:100px;' : $q.screen.width < 728 ? 'width:468px;height:60px;' : 'width:728px;height:90px;')
 
 const onWindowLoad = () => {
   if (prod) {
