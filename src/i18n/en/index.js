@@ -44,6 +44,7 @@ export default {
     authenticationSucceeds: 'BattleTag™ authentication succeeded'
   },
   join: {
+    caution:'Before joining, please be sure to check whether the email address you entered is dormant and available for receiving.',
     confirmPassword: 'Confirm Password',
     join: 'Join',
     termsPolicy: "By joining, you agree to Tradurs {'|'}{'#'}terms{'#'}Terms{'|'}, {'|'}{'#'}privacy-policy{'#'}Privacy Policy{'|'} and {'|'}{'#'}cookies-policy{'#'}Cookies Policy{'|'}.",

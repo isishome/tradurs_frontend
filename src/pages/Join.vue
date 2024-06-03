@@ -85,6 +85,11 @@ const join = () => {
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space :readonly="email !== null"
             v-model="info.email" type="email" maxlength="320" :rules="[val => val && checkEmail(val) || '']"
             :label="t('sign.email')" />
+          <q-slide-transition>
+            <div v-show="info.email && checkEmail(info.email)" class="text-caption text-orange-8 q-mt-xs q-px-sm">
+              {{ t('join.caution') }}
+            </div>
+          </q-slide-transition>
           <q-input :disable="disable" outlined no-error-icon hide-bottom-space v-model="info.pw" type="password"
             maxlength="16" :rules="[val => val && val.length >= 8 && complexity.value >= 60 || '']"
             :label="t('sign.password')" @update:model-value="updateComplexity">

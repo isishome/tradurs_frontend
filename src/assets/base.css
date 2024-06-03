@@ -56,3 +56,7 @@ body {
 .withdrawal .q-dialog__message {
   font-weight: 700;
 }
+
+.q-field__messages > div {
+  color:red;
+}

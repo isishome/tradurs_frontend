@@ -44,6 +44,7 @@ export default {
     authenticationSucceeds: 'BattleTag™ 인증이 완료되었습니다.'
   },
   join: {
+    caution:'가입 전 입력한 이메일 주소의 휴면상태 및 수신 가능 여부를 꼭 확인하시기 바랍니다.',
     confirmPassword: '비밀번호 확인',
     join: '가입',
     termsPolicy: "가입하게 되면 Tradurs의 {'|'}{'#'}terms{'#'}약관{'|'}, {'|'}{'#'}privacy-policy{'#'}개인정보 처리방침{'|'} 및 {'|'}{'#'}cookies-policy{'#'}쿠키 정책{'|'}에 동의하게 됩니다.",
