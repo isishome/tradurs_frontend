@@ -64,7 +64,8 @@ export default {
     offer: '가격 제안'
   },
   page: {
-    pnf: '페이지를 찾을 수 없습니다'
+    pnf: '페이지를 찾을 수 없습니다',
+    ftc: '데이터 서버에 문제가 발생했습니다'
   },
   notFound: {
     gotoMain: '메인 페이지로'

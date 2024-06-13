@@ -1,9 +1,5 @@
 export const routes = [
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'PageNotFound',
-    component: () => import('@/pages/PageNotFound.vue')
-  },
+
   {
     path: '/:lang([^/]{2})?',
     component: () => import('@/pages/Root.vue'),
@@ -88,5 +84,15 @@ export const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/:catchAll(.*)*',
+    name: 'PageNotFound',
+    component: () => import('@/pages/PageNotFound.vue')
+  },
+  {
+    path: '/:catchAll(.*)*',
+    name: 'FailedToConnection',
+    component: () => import('@/pages/FailedToConnection.vue')
   }
 ]

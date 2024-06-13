@@ -64,7 +64,8 @@ export default {
     offer: 'Get An Offer'
   },
   page: {
-    pnf: 'Page not found'
+    pnf: 'Page not found',
+    ftc: 'A problem has occurred with the data server'
   },
   notFound: {
     gotoMain: 'Go to main page'

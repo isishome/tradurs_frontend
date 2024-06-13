@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { instance } from '@/axios'
 
 export const useGlobalStore = defineStore('global', {
   state: () => ({
@@ -12,5 +13,16 @@ export const useGlobalStore = defineStore('global', {
     rightAccessTimeStamp: Date.now()
   }),
   actions: {
+    checkHealth() {
+      return new Promise((resolve, reject) => {
+        instance.get('/d4/system/health')
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+    }
   }
 })
