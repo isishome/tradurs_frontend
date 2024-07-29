@@ -2,7 +2,8 @@ export default {
   language: 'Language',
   beta: 'BETA',
   games: {
-    d4: 'Diablo® IV'
+    d4: 'Diablo® IV',
+    d2r:'Diablo® II: Resurrected'
   },
   btn: {
     cancel: 'Cancel',
@@ -58,10 +59,6 @@ export default {
     success: 'Email verification completed',
     expired: 'The verification code has expired and a new verification email has been sent',
     new: 'A temporary password has been sent to your email address'
-  },
-  item: {
-    season: 'Season',
-    offer: 'Get An Offer'
   },
   page: {
     pnf: 'Page not found',

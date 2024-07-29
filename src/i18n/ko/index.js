@@ -2,7 +2,8 @@ export default {
   language: '언어',
   beta: '베타',
   games: {
-    d4: '디아블로® IV'
+    d4: '디아블로® IV',
+    d2r:'디아블로® II: 레저렉션'
   },
   btn: {
     cancel: '취소',
@@ -58,10 +59,6 @@ export default {
     success: '이메일 인증이 완료되었습니다',
     expired: '인증 코드가 만료되어 새 인증 메일이 발송되었습니다',
     new: '이메일 주소로 임시 비밀번호가 발송되었습니다'
-  },
-  item: {
-    season: '시즌',
-    offer: '가격 제안'
   },
   page: {
     pnf: '페이지를 찾을 수 없습니다',
