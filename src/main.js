@@ -6,6 +6,7 @@ import { Quasar, Cookies, Notify, Dialog } from 'quasar'
 import { router } from '@/router'
 import { i18n } from './i18n'
 import Title from '@/components/paragraph/Title.vue'
+import Adsense from '@/components/Adsense.vue'
 
 // Import icon libraries
 //import '@quasar/extras/roboto-font/roboto-font.css'
@@ -26,4 +27,5 @@ createApp(App).provide('axios', instance).use(Quasar, {
   }
 }).use(createPinia()).use(router).use(i18n)
   .component('Title', Title)
+  .component('Adsense', Adsense)
   .mount('#app')

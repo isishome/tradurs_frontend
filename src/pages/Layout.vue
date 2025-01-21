@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { inject, ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
@@ -72,8 +72,6 @@ const reload = () => {
     rightKey.value++
     globalStore.rightAccessTimeStamp = Date.now()
   }
-
-  render()
 }
 
 watch(() => route.name, (val, old) => {
@@ -89,39 +87,10 @@ watch(() => $q.screen.gt.md, (val, old) => {
     globalStore.topAccessTimeStamp = Date.now()
     globalStore.bottomAccessTimeStamp = Date.now()
     globalStore.rightAccessTimeStamp = Date.now()
-
-    render()
   }
 })
 
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 468 ? 'width:320px;max-height:100px;' : $q.screen.width < 728 ? 'width:468px;height:60px;' : 'width:728px;height:90px;')
-
-let timer
-const currentRepeat = ref(0)
-const render = () => {
-  currentRepeat.value++
-  if (currentRepeat.value > 5 || !prod) clearTimeout(timer)
-  else if (!!window?.adsbygoogle) {
-    const adsbygoogle = window.adsbygoogle || []
-    const ads = document.querySelectorAll('ins.adsbygoogle[data-ad-slot]')
-    ads.forEach((a) => {
-      if (a.offsetHeight === 0 || a.innerHTML.trim() === '')
-        adsbygoogle.push({})
-    })
-  }
-  else
-    timer = setTimeout(() => {
-      render()
-    }, 200)
-}
-
-onMounted(() => {
-  render()
-})
-
-onUnmounted(() => {
-  clearTimeout(timer)
-})
 </script>
 <template>
   <q-layout view="hHh lpR lFf">
@@ -181,15 +150,14 @@ onUnmounted(() => {
         <div class="row justify-center">
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
-              <ins ref="topRef" v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
-                data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" data-full-width-responsive="false"
-                :data-adtest="prod ? 'off' : 'on'" :key="`top-${topKey}`"></ins>
+              <Adsense v-if="!accountStore.noAds" ref="topRef" :style="`display:inline-block;${size}`"
+                data-ad-slot="3025920602" :data-adtest="!prod" data-ad-format="horizontal"
+                data-full-width-responsive="false" :key="topKey" />
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
-            <ins ref="bottomRef" v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle"
-              style="display:block" data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690"
-              data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${bottomKey}`"></ins>
+            <Adsense v-if="$q.platform.is.mobile && !accountStore.noAds" ref="bottomRef" style="display:block"
+              data-ad-slot="3229008690" :data-adtest="!prod" data-full-width-responsive="true" :key="bottomKey" />
             <q-separator />
             <div class="q-pt-lg">
               <div class="row justify-center items-center q-gutter-xs text-caption bottom">
@@ -204,10 +172,8 @@ onUnmounted(() => {
           <div class="gt-sm col">
             <div class="full-height q-px-lg q-py-xl" :style="`width:280px;height:${asideHeight}`">
               <div :style="`position:sticky;top:${asideTop}`">
-                <ins ref="rightRef" v-if="!accountStore.noAds" class="adsbygoogle"
-                  style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5110777286519562"
-                  data-ad-slot="5460512257" data-full-width-responsive="false" :data-adtest="prod ? 'off' : 'on'"
-                  :key="`right-${rightKey}`"></ins>
+                <Adsense v-if="!accountStore.noAds" ref="rightRef" style="display:inline-block;width:160px;height:600px"
+                  data-ad-slot="5460512257" :data-adtest="!prod" data-full-width-responsive="false" :key="rightKey" />
               </div>
             </div>
           </div>
