@@ -73,7 +73,7 @@ const reload = () => {
     globalStore.rightAccessTimeStamp = Date.now()
   }
 
-  onWindowLoad()
+  render()
 }
 
 watch(() => route.name, (val, old) => {
@@ -90,14 +90,18 @@ watch(() => $q.screen.gt.md, (val, old) => {
     globalStore.bottomAccessTimeStamp = Date.now()
     globalStore.rightAccessTimeStamp = Date.now()
 
-    onWindowLoad()
+    render()
   }
 })
 
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 468 ? 'width:320px;max-height:100px;' : $q.screen.width < 728 ? 'width:468px;height:60px;' : 'width:728px;height:90px;')
 
-const onWindowLoad = () => {
-  if (prod) {
+let timer
+const currentRepeat = ref(0)
+const render = () => {
+  currentRepeat.value++
+  if (currentRepeat.value > props.repeat || prod) clearTimeout(timer)
+  else if (!!window?.adsbygoogle) {
     const adsbygoogle = window.adsbygoogle || []
     const ads = document.querySelectorAll('ins.adsbygoogle')
     ads.forEach((a) => {
@@ -105,17 +109,18 @@ const onWindowLoad = () => {
         adsbygoogle.push({})
     })
   }
+  else
+    timer = setTimeout(() => {
+      render()
+    }, 200)
 }
 
 onMounted(() => {
-  if (document.readyState !== 'complete')
-    window.addEventListener("load", onWindowLoad)
-  else
-    onWindowLoad()
+  render()
 })
 
 onUnmounted(() => {
-  window.removeEventListener("load", onWindowLoad)
+  clearTimeout(timer)
 })
 </script>
 <template>
