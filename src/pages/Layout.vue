@@ -100,7 +100,7 @@ let timer
 const currentRepeat = ref(0)
 const render = () => {
   currentRepeat.value++
-  if (currentRepeat.value > props.repeat || prod) clearTimeout(timer)
+  if (currentRepeat.value > 5 || prod) clearTimeout(timer)
   else if (!!window?.adsbygoogle) {
     const adsbygoogle = window.adsbygoogle || []
     const ads = document.querySelectorAll('ins.adsbygoogle')
