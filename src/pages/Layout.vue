@@ -182,15 +182,14 @@ onUnmounted(() => {
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
               <ins ref="topRef" v-if="!accountStore.noAds" class="adsbygoogle" :style="`display:inline-block;${size}`"
-                data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" :data-adtest="prod ? 'off' : 'on'"
-                :key="`top-${topKey}`"></ins>
+                data-ad-client="ca-pub-5110777286519562" data-ad-slot="3025920602" data-full-width-responsive="false"
+                :data-adtest="prod ? 'off' : 'on'" :key="`top-${topKey}`"></ins>
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
             <ins ref="bottomRef" v-if="$q.platform.is.mobile && !accountStore.noAds" class="adsbygoogle"
               style="display:block" data-ad-client="ca-pub-5110777286519562" data-ad-slot="3229008690"
-              data-ad-format="auto" data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'"
-              :key="`bottom-${bottomKey}`"></ins>
+              data-full-width-responsive="true" :data-adtest="prod ? 'off' : 'on'" :key="`bottom-${bottomKey}`"></ins>
             <q-separator />
             <div class="q-pt-lg">
               <div class="row justify-center items-center q-gutter-xs text-caption bottom">
@@ -207,7 +206,8 @@ onUnmounted(() => {
               <div :style="`position:sticky;top:${asideTop}`">
                 <ins ref="rightRef" v-if="!accountStore.noAds" class="adsbygoogle"
                   style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-5110777286519562"
-                  data-ad-slot="5460512257" :data-adtest="prod ? 'off' : 'on'" :key="`right-${rightKey}`"></ins>
+                  data-ad-slot="5460512257" data-full-width-responsive="false" :data-adtest="prod ? 'off' : 'on'"
+                  :key="`right-${rightKey}`"></ins>
               </div>
             </div>
           </div>
