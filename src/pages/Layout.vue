@@ -103,7 +103,7 @@ const render = () => {
   if (currentRepeat.value > 5 || !prod) clearTimeout(timer)
   else if (!!window?.adsbygoogle) {
     const adsbygoogle = window.adsbygoogle || []
-    const ads = document.querySelectorAll('ins.adsbygoogle')
+    const ads = document.querySelectorAll('ins.adsbygoogle[data-ad-slot]')
     ads.forEach((a) => {
       if (a.offsetHeight === 0 || a.innerHTML.trim() === '')
         adsbygoogle.push({})
