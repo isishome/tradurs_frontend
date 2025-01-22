@@ -91,6 +91,7 @@ watch(() => $q.screen.gt.md, (val, old) => {
 })
 
 const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100px;' : $q.screen.width < 468 ? 'width:320px;max-height:100px;' : $q.screen.width < 728 ? 'width:468px;height:60px;' : 'width:728px;height:90px;')
+
 </script>
 <template>
   <q-layout view="hHh lpR lFf">
@@ -150,9 +151,8 @@ const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100p
         <div class="row justify-center">
           <div :class="screen.lt.sm ? 'q-pa-sm' : 'q-pa-xl'" :style="screen.lt.sm ? 'width:100%' : 'width:824px'">
             <div class="row justify-center top-ads">
-              <Adsense v-if="!accountStore.noAds" ref="topRef" :style="`display:inline-block;${size}`"
-                data-ad-slot="3025920602" :data-adtest="!prod" data-ad-format="horizontal"
-                data-full-width-responsive="false" :key="topKey" />
+              <Adsense v-if="!accountStore.noAds" ref="topRef" :style="size" data-ad-slot="3025920602"
+                :data-adtest="!prod" data-ad-format="horizontal" data-full-width-responsive="false" :key="topKey" />
             </div>
             <RouterView />
             <div class="q-py-xl"></div>
@@ -191,24 +191,6 @@ const size = computed(() => $q.screen.width < 320 ? 'width:300px;max-height:100p
   min-height: inherit;
   width: 100vw;
   max-width: 1400px;
-}
-
-ins {
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, .05) !important;
-  background-color: rgba(0, 0, 0, .02) !important;
-  position: relative;
-  min-height: 50px;
-}
-
-ins::after {
-  content: 'AD';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  color: rgba(0, 0, 0, .2);
-  opacity: .6;
 }
 
 .top-ads {
