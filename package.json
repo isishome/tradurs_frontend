@@ -1,6 +1,6 @@
 {
   "name": "tradurs_front",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "dev": "vite --host --port 6080",
     "build": "vite build",
