@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   dataAdClient: {
@@ -21,39 +21,42 @@ const props = defineProps({
   dataFullWidthResponsive: {
     type: String,
     default: null
+  },
+  repeat: {
+    type: Number,
+    default: 5
   }
 })
 
+const prod = import.meta.env.PROD
 let timer
-const repeat = ref(0)
+const currentRepeat = ref(0)
 const render = () => {
-  repeat.value++
-  if (repeat.value > props.repeat) clearTimeout(timer)
+  currentRepeat.value++
+  if (currentRepeat.value > props.repeat) clearTimeout(timer)
   else if (!!window?.adsbygoogle) (window.adsbygoogle || []).push({})
-  else
-    timer = setTimeout(() => {
-      render()
-    }, 200)
+  else timer = setTimeout(render, 400)
 }
 
-// const load = () => {
-//   const adURL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.dataAdClient}`
-//   const script = document.createElement('script')
-//   script.src = adURL
+const load = () => {
+  const adURL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.dataAdClient}`
+  const script = document.createElement('script')
+  script.src = adURL
 
-//   script.async = true
-//   script.crossOrigin = 'anonymous'
+  script.async = true
+  script.crossOrigin = 'anonymous'
 
-//   if (!document.head.querySelector(`script[src="${adURL}"]`))
-//     document.head.appendChild(script)
-// }
+  if (!document.head.querySelector(`script[src="${adURL}"]`)) {
+    script.onload = () => {
+      render()
+    }
 
-// onBeforeMount(() => {
-//   load()
-// })
+    document.head.appendChild(script)
+  } else render()
+}
 
 onMounted(() => {
-  render()
+  if (prod) load()
 })
 
 onUnmounted(() => {
@@ -62,8 +65,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <ins class="adsbygoogle ins" :data-ad-client="dataAdClient" :data-ad-slot="dataAdSlot" :data-ad-format="dataAdFormat"
-    :data-adtest="dataAdtest ? 'on' : null" :data-full-width-responsive="dataFullWidthResponsive"></ins>
+  <ins
+    class="adsbygoogle ins"
+    :data-ad-client="dataAdClient"
+    :data-ad-slot="dataAdSlot"
+    :data-ad-format="dataAdFormat"
+    :data-adtest="dataAdtest ? 'on' : null"
+    :data-full-width-responsive="dataFullWidthResponsive"
+  ></ins>
 </template>
 
 <style scoped>
