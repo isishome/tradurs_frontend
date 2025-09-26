@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, nextTick } from 'vue'
 
 const props = defineProps({
   dataAdClient: {
@@ -8,19 +8,19 @@ const props = defineProps({
   },
   dataAdSlot: {
     type: String,
-    required: true
+    default: null
   },
   dataAdFormat: {
     type: String,
-    default: null
+    default: undefined
   },
   dataAdtest: {
     type: Boolean,
-    default: null
+    default: undefined
   },
   dataFullWidthResponsive: {
-    type: String,
-    default: null
+    type: Boolean,
+    default: undefined
   },
   repeat: {
     type: Number,
@@ -29,38 +29,24 @@ const props = defineProps({
 })
 
 const prod = import.meta.env.PROD
-let timer
-const currentRepeat = ref(0)
-const render = () => {
-  currentRepeat.value++
-  if (currentRepeat.value > props.repeat) clearTimeout(timer)
-  else if (!!window?.adsbygoogle) (window.adsbygoogle || []).push({})
-  else timer = setTimeout(render, 400)
+
+const pushAdsense = () => {
+  ;(window.adsbygoogle = window.adsbygoogle || []).push({})
 }
 
-const load = () => {
-  const adURL = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${props.dataAdClient}`
-  const script = document.createElement('script')
-  script.src = adURL
-
-  script.async = true
-  script.crossOrigin = 'anonymous'
-
-  if (!document.head.querySelector(`script[src="${adURL}"]`)) {
-    script.onload = () => {
-      render()
-    }
-
-    document.head.appendChild(script)
-  } else render()
+const render = () => {
+  void nextTick(() => {
+    if (window.adsenseLoaded) pushAdsense()
+    else window.addEventListener('adsense-loaded', pushAdsense)
+  })
 }
 
 onMounted(() => {
-  if (prod) load()
+  if (prod) render()
 })
 
 onUnmounted(() => {
-  clearTimeout(timer)
+  window.removeEventListener('adsense-loaded', pushAdsense)
 })
 </script>
 
@@ -69,40 +55,26 @@ onUnmounted(() => {
     class="adsbygoogle ins"
     :data-ad-client="dataAdClient"
     :data-ad-slot="dataAdSlot"
-    :data-ad-format="dataAdFormat"
     :data-adtest="dataAdtest ? 'on' : null"
+    :data-ad-format="dataAdFormat"
     :data-full-width-responsive="dataFullWidthResponsive"
   ></ins>
 </template>
 
-<style scoped>
+<style scoped="module">
 .ins {
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05) !important;
-  background-color: rgba(0, 0, 0, 0.02) !important;
   position: relative;
-  min-height: 200px;
-}
-
-.ins::after {
-  content: '광고';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  transform: translate(-50%, -50%);
-  color: rgba(0, 0, 0, 0.2);
-}
-
-.body--dark .ins {
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
-  background-color: rgba(255, 255, 255, 0.02) !important;
-}
-
-.body--dark .ins::after {
-  color: rgba(255, 255, 255, 0.2);
+  min-height: 50px;
+  background-color: var(--vp-carbon-ads-bg-color);
 }
 
 .ins[data-ad-status='unfilled'] {
-  display: none !important;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.ins[data-ad-status='unfilled'] {
+  padding: 0;
+  background-color: inherit;
 }
 </style>
