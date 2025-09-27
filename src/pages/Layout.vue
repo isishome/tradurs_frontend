@@ -241,7 +241,7 @@ const size = computed(() =>
             <Adsense
               v-if="$q.platform.is.mobile && !accountStore.noAds"
               ref="bottomRef"
-              style="display: block"
+              style="display: block; width: 100%"
               data-ad-slot="3229008690"
               :data-adtest="!prod"
               data-ad-format="auto"
