@@ -1,16 +1,16 @@
 <script setup>
-import { inject, ref, reactive, computed, nextTick, onMounted } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import { useAccountStore } from '@/stores/account'
-import { useRoute, useRouter } from 'vue-router'
-import { checkComplexity, checkBattleTag, checkEmail } from '@/common'
+import { inject, ref, reactive, computed, nextTick, onMounted } from "vue"
+import { useQuasar } from "quasar"
+import { useI18n } from "vue-i18n"
+import { useAccountStore } from "@/stores/account"
+import { useRoute, useRouter } from "vue-router"
+import { checkComplexity, checkBattleTag, checkEmail } from "@/common"
 
 const backend = import.meta.env.VITE_APP_BACKEND_ORIGIN
 
-const axios = inject('axios')
+const axios = inject("axios")
 const $q = useQuasar()
-const { t } = useI18n({ useScope: 'global' })
+const { t } = useI18n({ useScope: "global" })
 
 const screen = computed(() => $q.screen)
 const store = useAccountStore()
@@ -26,16 +26,18 @@ const info = ref({
 const cp = ref(null)
 const complexity = reactive({
   value: 0,
-  color: 'grey'
+  color: "grey"
 })
+const isAdmin = computed(() => store.info.isAdmin)
+
 const updateComplexity = (val) => {
   const color = [
-    'grey-3',
-    'red-6',
-    'deep-orange-6',
-    'amber-6',
-    'lime-6',
-    'green-6'
+    "grey-3",
+    "red-6",
+    "deep-orange-6",
+    "amber-6",
+    "lime-6",
+    "green-6"
   ]
   complexity.value = checkComplexity(val)
   complexity.color = color[complexity.value / 20]
@@ -43,17 +45,17 @@ const updateComplexity = (val) => {
 
 const changePassword = () => {
   axios
-    .post('/account/change', info.value)
+    .post("/account/change", info.value)
     .then(() => {
       $q.notify({
-        color: 'positive',
-        message: t('info.success')
+        color: "positive",
+        message: t("info.success")
       })
       info.value.op = null
       info.value.np = null
       cp.value = null
       complexity.value = 0
-      complexity.color = 'grey'
+      complexity.color = "grey"
       nextTick(() => {
         form1.value.resetValidation()
       })
@@ -66,14 +68,15 @@ const battlenet = reactive({
   battleTag: store.info.battleTag,
   loading: false
 })
+
 const changeBattleTag = () => {
   battlenet.loading = true
   axios
-    .post('battlenet/tag/update', battlenet)
+    .post("battlenet/tag/update", battlenet)
     .then(() => {
       $q.notify({
-        color: 'positive',
-        message: t('info.successBattleTag')
+        color: "positive",
+        message: t("info.successBattleTag")
       })
       nextTick(() => {
         form2.value.resetValidation()
@@ -98,11 +101,11 @@ const _avatar = ref(store.info.avatar)
 const changeAvatar = () => {
   avatarLoading.value = true
   axios
-    .post('account/avatar/update', { avatar: _avatar.value })
+    .post("account/avatar/update", { avatar: _avatar.value })
     .then(() => {
       $q.notify({
-        color: 'positive',
-        message: t('info.successAvatar')
+        color: "positive",
+        message: t("info.successAvatar")
       })
     })
     .catch(() => {})
@@ -119,16 +122,16 @@ const withdrawal = reactive({
 const confirmWithdrawal = () => {
   withdrawal.loading = true
   axios
-    .post('account/withdrawal', withdrawal)
+    .post("account/withdrawal", withdrawal)
     .then(() => {
       $q.notify({
-        color: 'positive',
-        message: t('info.successWithdrawal')
+        color: "positive",
+        message: t("info.successWithdrawal")
       })
 
       store.signed = false
       store.info = {}
-      router.push({ name: 'Main', params: { lang: route.params.lang } })
+      router.push({ name: "Main", params: { lang: route.params.lang } })
     })
     .catch(() => {})
     .then(() => {
@@ -137,19 +140,19 @@ const confirmWithdrawal = () => {
 }
 const proceedWithdrawal = () => {
   $q.dialog({
-    title: t('info.withdrawal'),
-    class: 'withdrawal',
-    message: t('info.confirmWithdrawal'),
+    title: t("info.withdrawal"),
+    class: "withdrawal",
+    message: t("info.confirmWithdrawal"),
     cancel: {
       unelevated: true,
-      color: 'grey',
-      label: t('btn.cancel')
+      color: "grey",
+      label: t("btn.cancel")
     },
     ok: {
       unelevated: true,
-      color: 'negative',
-      class: 'text-weight-bold',
-      label: t('info.withdrawalBtn')
+      color: "negative",
+      class: "text-weight-bold",
+      label: t("info.withdrawalBtn")
     },
     persistent: true
   }).onOk(() => {
@@ -157,32 +160,42 @@ const proceedWithdrawal = () => {
   })
 }
 
+const onIssueToken = async () => {
+  await store.issueToken()
+}
+
+const message = ref()
+
+const onSendMessage = async () => {
+  await store.sendMessage(message.value)
+}
+
 onMounted(() => {
-  if (status.value === 'failed') {
+  if (status.value === "failed") {
     $q.notify({
-      color: 'negative',
-      message: t('info.authenticationFailed')
+      color: "negative",
+      message: t("info.authenticationFailed")
     })
   }
-  if (status.value === 'exists') {
+  if (status.value === "exists") {
     $q.notify({
-      color: 'negative',
-      message: t('info.exists')
+      color: "negative",
+      message: t("info.exists")
     })
-  } else if (status.value === 'success') {
+  } else if (status.value === "success") {
     $q.notify({
-      color: 'positive',
-      message: t('info.authenticationSucceeds')
+      color: "positive",
+      message: t("info.authenticationSucceeds")
     })
   }
 })
 </script>
 <template>
-  <div class="text-h5 text-weight-bold">{{ t('info.user') }}</div>
+  <div class="text-h5 text-weight-bold">{{ t("info.user") }}</div>
   <q-separator class="q-my-sm" />
   <q-card flat>
     <q-card-section class="text-weight-bold text-h6 q-pa-sm">
-      {{ t('sign.email') }}
+      {{ t("sign.email") }}
     </q-card-section>
     <q-card-section
       class="text-h6"
@@ -192,7 +205,7 @@ onMounted(() => {
     </q-card-section>
     <q-separator inset class="q-my-md" />
     <q-card-section class="text-weight-bold text-h6 q-pa-sm">
-      {{ t('info.changePassword') }}
+      {{ t("info.changePassword") }}
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <q-form
@@ -267,11 +280,18 @@ onMounted(() => {
     <q-card-section class="q-pa-sm">
       <div class="row items-center q-gutter-x-md">
         <div class="text-weight-bold text-h6">
-          {{ t('info.changeBattleTag') }}
+          {{ t("info.changeBattleTag") }}
         </div>
         <div class="text-caption text-negative">
-          {{ t('info.alertBattleTag') }}
+          {{ t("info.alertBattleTag") }}
         </div>
+      </div>
+    </q-card-section>
+    <q-card-section v-if="isAdmin">
+      <div class="row q-gutter-x-sm">
+        <q-btn color="primary" label="텔레그럼 연동" @click="onIssueToken" />
+        <q-input v-model="message" dense outlined />
+        <q-btn color="primary" label="텔레그럼 전송" @click="onSendMessage" />
       </div>
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
@@ -337,7 +357,7 @@ onMounted(() => {
     <q-separator inset class="q-my-md" />
     <q-card-section class="q-pa-sm">
       <div class="row items-center q-gutter-x-md">
-        <div class="text-weight-bold text-h6">{{ t('info.changeAvatar') }}</div>
+        <div class="text-weight-bold text-h6">{{ t("info.changeAvatar") }}</div>
       </div>
     </q-card-section>
     <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
@@ -383,10 +403,10 @@ onMounted(() => {
     <q-card-section class="q-pa-sm">
       <div class="row items-center q-gutter-x-md">
         <div class="text-weight-bold text-negative text-h6">
-          {{ t('info.withdrawal') }}
+          {{ t("info.withdrawal") }}
         </div>
         <div class="text-caption text-negative">
-          {{ t('info.alertWithdrawal') }}
+          {{ t("info.alertWithdrawal") }}
         </div>
       </div>
     </q-card-section>
