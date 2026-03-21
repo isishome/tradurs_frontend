@@ -308,7 +308,7 @@ onMounted(() => {
         </div>
       </div>
     </q-card-section>
-    <q-card-section class="q-pa-sm">
+    <q-card-section :class="screen.gt.sm ? 'q-px-xl' : 'q-px-sm'">
       <div class="column no-wrap items-center q-gutter-y-sm">
         <div class="row no-wrap items-center q-gutter-x-sm">
           <img
