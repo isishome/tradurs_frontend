@@ -297,8 +297,8 @@ onMounted(() => {
         />
       </q-form>
     </q-card-section>
-    <q-separator v-if="false" inset class="q-my-md" />
-    <q-card-section v-if="false" class="q-pa-sm">
+    <q-separator inset class="q-my-md" />
+    <q-card-section class="q-pa-sm">
       <div class="row items-center q-gutter-x-md">
         <div class="text-weight-bold text-h6">
           {{ t('info.integrateTelegram') }}
@@ -308,7 +308,7 @@ onMounted(() => {
         </div>
       </div>
     </q-card-section>
-    <q-card-section v-if="false" class="q-pa-sm">
+    <q-card-section class="q-pa-sm">
       <div class="column no-wrap items-center q-gutter-y-sm">
         <div class="row no-wrap items-center q-gutter-x-sm">
           <img
