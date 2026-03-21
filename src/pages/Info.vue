@@ -5,6 +5,7 @@ import { useI18n } from "vue-i18n"
 import { useAccountStore } from "@/stores/account"
 import { useRoute, useRouter } from "vue-router"
 import { checkComplexity, checkBattleTag, checkEmail } from "@/common"
+import { useTelegramStore } from "../stores/telegram"
 
 const backend = import.meta.env.VITE_APP_BACKEND_ORIGIN
 
@@ -14,6 +15,7 @@ const { t } = useI18n({ useScope: "global" })
 
 const screen = computed(() => $q.screen)
 const store = useAccountStore()
+const { issueToken, sendMessage } = useTelegramStore()
 const route = useRoute()
 const router = useRouter()
 
@@ -161,13 +163,13 @@ const proceedWithdrawal = () => {
 }
 
 const onIssueToken = async () => {
-  await store.issueToken()
+  await issueToken()
 }
 
 const message = ref()
 
 const onSendMessage = async () => {
-  await store.sendMessage(message.value)
+  await sendMessage(message.value)
 }
 
 onMounted(() => {

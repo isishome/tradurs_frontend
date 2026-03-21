@@ -19,24 +19,5 @@ export const useAccountStore = defineStore("account", () => {
     }
   }
 
-  const issueToken = async () => {
-    try {
-      const result = await instance.post("/account/telegram/issue")
-      location.href = result.data.botLink
-    } catch {
-      //
-    }
-  }
-
-  const sendMessage = async (message) => {
-    try {
-      await instance.post("/account/telegram/send", {
-        message
-      })
-    } catch {
-      //
-    }
-  }
-
-  return { signed, info, noAds, checkSign, issueToken, sendMessage }
+  return { signed, info, noAds, checkSign }
 })
