@@ -1,25 +1,20 @@
-import { defineStore } from "pinia"
-import { instance } from "@/axios"
+import { defineStore } from 'pinia'
+import { instance } from '@/axios'
 
-export const useTelegramStore = defineStore("telegram", () => {
+export const useTelegramStore = defineStore('telegram', () => {
+  const getStatus = async () => {
+    const result = await instance.get('/telegram/status')
+    return result.data
+  }
+
   const issueToken = async () => {
     try {
-      const result = await instance.post("/telegram/issue")
-      location.href = result.data.botLink
+      const result = await instance.post('/telegram/issue')
+      window.open(result.data.botLink, 'tradurs_notify_bot', { toolbar: false })
     } catch {
       //
     }
   }
 
-  const sendMessage = async (message) => {
-    try {
-      await instance.post("/telegram/send", {
-        message
-      })
-    } catch {
-      //
-    }
-  }
-
-  return { issueToken, sendMessage }
+  return { getStatus, issueToken }
 })

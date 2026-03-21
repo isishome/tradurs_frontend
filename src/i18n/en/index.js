@@ -3,13 +3,20 @@ export default {
   beta: 'BETA',
   games: {
     d4: 'Diablo® IV',
-    d2r:'Diablo® II: Resurrected'
+    d2r: 'Diablo® II: Resurrected'
   },
   btn: {
     cancel: 'Cancel',
     change: 'Change',
     withdrawal: 'Withdrawal',
-    verify: 'Verify'
+    verify: 'Verify',
+    integrate: 'Connect',
+    reIntegrate: 'Reconnect'
+  },
+  status: {
+    CONNECTED: 'Connected',
+    NOT_CONNECTED: 'Not connected',
+    PENDING: 'Connection pending'
   },
   sign: {
     email: 'Email Address',
@@ -29,13 +36,17 @@ export default {
     currentPassword: 'Current Password',
     newPassword: 'New Password',
     confirmNewPassword: 'Confirm New Password',
+    integrateTelegram: 'Connect Telegram',
+    alertTelegram:
+      'The request is valid for 10 minutes. You can’t request again during this time.',
     changeBattleTag: 'Change BattleTag™',
     changeAvatar: 'Change Avatar',
     alertBattleTag: 'Changing your BattleTag™ will deauthorize you.',
     withdrawal: 'Withdrawal',
     withdrawalBtn: 'Withdrawal',
     alertWithdrawal: 'Member information will be deleted upon withdrawal.',
-    confirmWithdrawal: 'When you withdrawal, all member information is deleted, and you cannot re-register with the email address you are using. Are you sure you want to withdrawal?',
+    confirmWithdrawal:
+      'When you withdrawal, all member information is deleted, and you cannot re-register with the email address you are using. Are you sure you want to withdrawal?',
     success: 'Your password has been changed',
     successBattleTag: 'Your BattleTag™ has been changed',
     successAvatar: 'Your Avatar has been changed',
@@ -45,19 +56,24 @@ export default {
     authenticationSucceeds: 'BattleTag™ authentication succeeded'
   },
   join: {
-    caution:'Before joining, please be sure to check whether the email address you entered is dormant and available for receiving.',
+    caution:
+      'Before joining, please be sure to check whether the email address you entered is dormant and available for receiving.',
     confirmPassword: 'Confirm Password',
     join: 'Join',
-    termsPolicy: "By joining, you agree to Tradurs {'|'}{'#'}terms{'#'}Terms{'|'}, {'|'}{'#'}privacy-policy{'#'}Privacy Policy{'|'} and {'|'}{'#'}cookies-policy{'#'}Cookies Policy{'|'}.",
-    success: 'We\'ve sent an email to verify your email address and activate your account. The link in the email will expire in 24 hours.'
+    termsPolicy:
+      "By joining, you agree to Tradurs {'|'}{'#'}terms{'#'}Terms{'|'}, {'|'}{'#'}privacy-policy{'#'}Privacy Policy{'|'} and {'|'}{'#'}cookies-policy{'#'}Cookies Policy{'|'}.",
+    success:
+      "We've sent an email to verify your email address and activate your account. The link in the email will expire in 24 hours."
   },
   forgot: {
     send: 'Send an account verification email',
-    success: 'We\'ve sent an email to verify your email address and activate your account. The link in the email will expire in 24 hours.'
+    success:
+      "We've sent an email to verify your email address and activate your account. The link in the email will expire in 24 hours."
   },
   verify: {
     success: 'Email verification completed',
-    expired: 'The verification code has expired and a new verification email has been sent',
+    expired:
+      'The verification code has expired and a new verification email has been sent',
     new: 'A temporary password has been sent to your email address'
   },
   page: {

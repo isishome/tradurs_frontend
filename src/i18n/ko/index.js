@@ -3,13 +3,20 @@ export default {
   beta: '베타',
   games: {
     d4: '디아블로® IV',
-    d2r:'디아블로® II: 레저렉션'
+    d2r: '디아블로® II: 레저렉션'
   },
   btn: {
     cancel: '취소',
     change: '변경',
     withdrawal: '탈퇴',
-    verify: '인증'
+    verify: '인증',
+    integrate: '연동',
+    reIntegrate: '다시 연동'
+  },
+  status: {
+    CONNECTED: '연동 중',
+    NOT_CONNECTED: '연동되지 않음',
+    PENDING: '연동 요청 중'
   },
   sign: {
     email: '이메일 주소',
@@ -29,13 +36,17 @@ export default {
     currentPassword: '현재 비밀번호',
     newPassword: '새 비밀번호',
     confirmNewPassword: '새 비밀번호 확인',
+    integrateTelegram: '텔레그램 연동',
+    alertTelegram:
+      '텔레그램 연동 요청은 10분간 유효하며, 해당 시간 동안 재요청은 불가능합니다.',
     changeBattleTag: 'BattleTag™ 변경',
     changeAvatar: '아바타 변경',
     alertBattleTag: 'BattleTag™ 변경 시 인증이 해제됩니다.',
     withdrawal: '회원 탈퇴',
     withdrawalBtn: '탈퇴',
     alertWithdrawal: '탈퇴 시 회원 정보가 삭제됩니다.',
-    confirmWithdrawal: '탈퇴 시 회원 정보가 모두 삭제되며, 사용 중인 이메일 주소로 재가입 할 수 없습니다. 탈퇴하시겠습니까?',
+    confirmWithdrawal:
+      '탈퇴 시 회원 정보가 모두 삭제되며, 사용 중인 이메일 주소로 재가입 할 수 없습니다. 탈퇴하시겠습니까?',
     success: '비밀번호가 변경되었습니다',
     successBattleTag: 'BattleTag™가 변경되었습니다',
     successAvatar: '아바타가 변경되었습니다',
@@ -45,15 +56,19 @@ export default {
     authenticationSucceeds: 'BattleTag™ 인증이 완료되었습니다.'
   },
   join: {
-    caution:'가입 전 입력한 이메일 주소의 휴면상태 및 수신 가능 여부를 꼭 확인하시기 바랍니다.',
+    caution:
+      '가입 전 입력한 이메일 주소의 휴면상태 및 수신 가능 여부를 꼭 확인하시기 바랍니다.',
     confirmPassword: '비밀번호 확인',
     join: '가입',
-    termsPolicy: "가입하게 되면 Tradurs의 {'|'}{'#'}terms{'#'}약관{'|'}, {'|'}{'#'}privacy-policy{'#'}개인정보 처리방침{'|'} 및 {'|'}{'#'}cookies-policy{'#'}쿠키 정책{'|'}에 동의하게 됩니다.",
-    success: '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
+    termsPolicy:
+      "가입하게 되면 Tradurs의 {'|'}{'#'}terms{'#'}약관{'|'}, {'|'}{'#'}privacy-policy{'#'}개인정보 처리방침{'|'} 및 {'|'}{'#'}cookies-policy{'#'}쿠키 정책{'|'}에 동의하게 됩니다.",
+    success:
+      '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
   },
   forgot: {
     send: '확인 이메일 보내기',
-    success: '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
+    success:
+      '이메일 주소를 확인하고 계정을 활성화하기 위해 이메일을 보냈습니다. 이메일의 링크는 24시간 후에 만료됩니다.'
   },
   verify: {
     success: '이메일 인증이 완료되었습니다',
