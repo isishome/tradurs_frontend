@@ -16,7 +16,7 @@ const d4 = import.meta.env.VITE_APP_D4_ORIGIN
 const cain = import.meta.env.VITE_APP_CAIN_ORIGIN
 const d4WithLang = d4 + `/${route.params.lang || 'ko'}`
 const d2rWithLang = d2r + `/${route.params.lang || 'ko'}`
-const cainWithLang = cain
+const cainWithLang = cain + `/${route.params.lang || 'ko'}`
 </script>
 <template>
   <div>
