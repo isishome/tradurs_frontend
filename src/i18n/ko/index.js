@@ -3,7 +3,8 @@ export default {
   beta: '베타',
   games: {
     d4: '디아블로® IV',
-    d2r: '디아블로® II: 레저렉션'
+    d2r: '디아블로® II: 레저렉션',
+    cain: 'DECKARD - 디아블로® II'
   },
   btn: {
     cancel: '취소',

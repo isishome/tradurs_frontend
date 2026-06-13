@@ -31,6 +31,7 @@ jobs:
           echo "VITE_APP_BACKEND_ORIGIN=https://api.tradurs.com" >> .env.production
           echo "VITE_APP_D4_ORIGIN=https://d4.tradurs.com" >> .env.production
           echo "VITE_APP_D2R_ORIGIN=https://d2r.tradurs.com" >> .env.production
+          echo "VITE_APP_CAIN_ORIGIN=https://deckard.tradurs.com" >> .env.production
 
       - name: Build project
         run: npm run build

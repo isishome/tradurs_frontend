@@ -3,7 +3,8 @@ export default {
   beta: 'BETA',
   games: {
     d4: 'Diablo® IV',
-    d2r: 'Diablo® II: Resurrected'
+    d2r: 'Diablo® II: Resurrected',
+    cain: 'DECKARD - Diablo® II'
   },
   btn: {
     cancel: 'Cancel',
