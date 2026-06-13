@@ -21,7 +21,7 @@ const cainWithLang = cain + `/${route.params.lang || 'ko'}`
 <template>
   <div>
     <div class="games row q-col-gutter-md">
-      <div class="col col-sm-6">
+      <div class="col-6">
         <div class="q-ma-lg">
           <q-btn
             flat
@@ -47,7 +47,7 @@ const cainWithLang = cain + `/${route.params.lang || 'ko'}`
           </q-btn>
         </div>
       </div>
-      <div class="col col-sm-6">
+      <div class="col-6">
         <div class="q-ma-lg">
           <q-btn
             flat
@@ -73,7 +73,7 @@ const cainWithLang = cain + `/${route.params.lang || 'ko'}`
           </q-btn>
         </div>
       </div>
-      <div class="col col-sm-6">
+      <div class="col-6">
         <div class="q-ma-lg">
           <q-btn
             flat
